@@ -301,9 +301,9 @@ rerun_with_sudo() {
     chmod +x "$_tmp_script"
 
     if has_command curl; then
-      curl -o "$_tmp_script" 'https://github.com/xxf185/git/releases/latest/download/install_server.sh'
+      curl -o "$_tmp_script" 'https://raw.githubusercontent.com/xxf185/hysteria/master/install_server.sh'
     elif has_command wget; then
-      wget -O "$_tmp_script" 'https://github.com/xxf185/git/releases/latest/download/install_server.sh'
+      wget -O "$_tmp_script" 'https://raw.githubusercontent.com/xxf185/hysteria/master/install_server.sh'
     else
       return 127
     fi
