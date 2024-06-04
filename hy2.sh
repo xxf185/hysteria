@@ -471,7 +471,7 @@ showconf(){
 
 update_core(){
     # ReInstall Hysteria 2
-    bash <(curl -fsSL https://github.com/xxf185/hysteria2/releases/download/v1.0/install_server.sh)
+    bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/hysteria/master/install_server.sh)
 
 }
 
