@@ -423,7 +423,6 @@ echo "2. 卸载"
 echo "3. 查看配置"
 echo "4. 退出脚本"
 echo "5. 更新hy2内核(当前版本:$version)"
-echo "6. 安装xanmod内核(更好的调动网络资源)"
 echo ""
 echo "hy2内核最新版本： $latest_version"
 echo ""
@@ -509,27 +508,6 @@ get_updated_version
 echo "当前最新hy2版本:$version2"
     exit
     ;;
-   6)
-echo "输入y安装,输入n取消,输入o卸载 (y/n/o)"
-read answer
-if [ "$answer" == "y" ]; then
-check_sys
-installxanmod2
-elif [ "$answer" == "n" ]; then
-  echo "Canceling and exiting..."
-  exit 0
-elif [ "$answer" == "o" ]; then
-check_sys
-detele_kernel_custom
-else
-  echo "Invalid input. Please enter y, n, or o."
-fi
-   exit
-   ;;
-   *)
-     echo "$(random_color '选择无效')"
-     exit
-     ;;
 esac
 
 sleep 1
