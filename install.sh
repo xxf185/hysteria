@@ -643,7 +643,7 @@ generate_certificate() {
         generate_certificate
     fi
 }
-
+echo ""
 read -p "请选择证书类型（输入 1 使用ACME证书,输入 2 使用自签名证书,回车默认acme证书申请）: " cert_choice
 
 if [ "$cert_choice" == "2" ]; then
@@ -651,7 +651,7 @@ if [ "$cert_choice" == "2" ]; then
 
     certificate_path="/etc/ssl/private/$domain_name.crt"
     private_key_path="/etc/ssl/private/$domain_name.key"
-
+    echo ""
     echo -e "证书文件已保存到 /etc/ssl/private/$domain_name.crt"
     echo -e "私钥文件已保存到 /etc/ssl/private/$domain_name.key"
 
@@ -954,18 +954,16 @@ echo ""
 
 if [ -n "$start_port" ] && [ -n "$end_port" ]; then
 
-  echo -e "$(random_color 'Hysteria2节点链接信息: ')\nhysteria2://$password@$ipwan$domain:$port/?${ovokk}mport=$port,$start_port-$end_port&sni=$domain$domain_name#Hysteria2"
+  echo -e "$(random_color '------链接------: ')\nhysteria2://$password@$ipwan$domain:$port/?${ovokk}mport=$port,$start_port-$end_port&sni=$domain$domain_name#Hysteria2"
   
   echo "hysteria2://$password@$ipwan$domain:$port/?${ovokk}mport=$port,$start_port-$end_port&sni=$domain$domain_name#Hysteria2" > neko.txt
   
 else
 
-  echo -e "$(random_color 'Hysteria2节点链接信息')\nhysteria2://$password@$ipwan$domain:$port/?${ovokk}sni=$domain$domain_name#Hysteria2"
+  echo -e "$(random_color '------链接------')\nhysteria2://$password@$ipwan$domain:$port/?${ovokk}sni=$domain$domain_name#Hysteria2"
   
   echo "hysteria2://$password@$ipwan$domain:$port/?${ovokk}sni=$domain$domain_name#Hysteria2" > neko.txt
   
 fi
 
-echo -e "$(random_color '
-
-Hysteria2安装成功')"
+echo -e "$(random_color '安装成功')"
