@@ -887,13 +887,10 @@ proxy-groups:
 rules:
   - MATCH,auto
 EOL
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
+echo ""
 echo "
 clash-mate.yaml 已保存到当前文件夹
 "
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
 
 if nohup ./hysteria-linux-$arch server & then
   echo "$(random_color '
@@ -902,8 +899,8 @@ else
   echo "$(random_color '启动服务失败')"
   exit 1
 fi
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
+echo ""
+
 hysteria_directory="/root/hy3/"
 hysteria_executable="/root/hy3/hysteria-linux-$arch"
 hysteria_service_file="/etc/systemd/system/hysteria.service"
@@ -945,18 +942,15 @@ create_and_configure_service
 enable_and_start_service
 
 echo "
-完成。
+完成
 "
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
-
 sleep 2
 
 echo "$(random_color '
 这是你的clash配置:')"
 cat /root/hy3/clash-mate.yaml
 
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
+echo ""
 
 if [ -n "$start_port" ] && [ -n "$end_port" ]; then
 
