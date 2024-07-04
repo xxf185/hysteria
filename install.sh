@@ -450,7 +450,7 @@ exit
      exit
      ;;
    3)
-echo "$(random_color 'nekobox节点')" 
+echo "$(random_color 'nekobox配置')" 
 
 cd /root/hy3/
 
@@ -530,19 +530,18 @@ fi
    exit
    ;;
    *)
-     echo "$(random_color '无效的选择，退出脚本。')"
+     echo "$(random_color '选择无效')"
      exit
      ;;
 esac
 
-echo "$(random_color '别急,别急,别急,老登')"
 sleep 1
 
 if [ "$hy2zt" = "运行中" ]; then
-  echo "Hysteria 正在运行，请先卸载再安装。"
+  echo "Hysteria 正在运行"
   exit 1
 else
-  echo "原神,启动。"
+  echo ""
 fi
 
 uninstall_hysteria > /dev/null 2>&1
@@ -554,15 +553,15 @@ cd ~/hy3
 if wget -O hysteria-linux-$arch https://download.hysteria.network/app/latest/hysteria-linux-$arch; then
   chmod +x hysteria-linux-$arch
 else
-  if wget -O hysteria-linux-$arch https://github.com/apernet/hysteria/releases/download/app/v2.2.2/hysteria-linux-$arch; then
+  if wget -O hysteria-linux-$arch https://github.com/xxf185/hysteria/releases/download/app/v2.2.2/hysteria-linux-$arch; then
     chmod +x hysteria-linux-$arch
   else
-    echo "无法从任何网站下载文件"
+    echo "下载失败"
     exit 1
   fi
 fi
 }
-echo "$(random_color '正在下载中,老登( ﾟдﾟ)つBye')"
+echo "$(random_color '正在下载中')"
 sleep 1
 installhy2 > /dev/null 2>&1
 
@@ -607,7 +606,7 @@ quic:
 EOL
 
 while true; do 
-    echo "$(random_color '请输入端口号（留空默认443，输入0随机2000-60000，你可以输入1-65630指定端口号）: ')" 
+    echo "$(random_color '请输入端口号（默认443，输入0随机2000-60000，你可以输入1-65630指定端口号）: ')" 
     read -p "" port 
   
     if [ -z "$port" ]; then 
@@ -615,7 +614,7 @@ while true; do
     elif [ "$port" -eq 0 ]; then 
       port=$((RANDOM % 58001 + 2000)) 
     elif ! [[ "$port" =~ ^[0-9]+$ ]]; then 
-      echo "$(random_color '我的动物朋友，请输入数字好吧，请重新输入端口号：')" 
+      echo "$(random_color '输入错误')" 
       continue 
     fi 
   
@@ -627,20 +626,20 @@ while true; do
     if sed -i "s/443/$port/" config.yaml; then 
       echo "$(random_color '端口号已设置为：')" "$port" 
     else 
-      echo "$(random_color '替换端口号失败，退出脚本。')" 
+      echo "$(random_color '输入错误')" 
       exit 1 
     fi 
   
 
 generate_certificate() {
-    read -p "请输入要用于自签名证书的域名（默认为 bing.com）: " user_domain
+    read -p "请输入自签名证书（默认为 bing.com）: " user_domain
     domain_name=${user_domain:-"bing.com"}
     if curl --output /dev/null --silent --head --fail "$domain_name"; then
         openssl req -x509 -nodes -newkey ec:<(openssl ecparam -name prime256v1) -keyout "/etc/ssl/private/$domain_name.key" -out "/etc/ssl/private/$domain_name.crt" -subj "/CN=$domain_name" -days 36500
         chmod 600 "/etc/ssl/private/$domain_name.key" "/etc/ssl/private/$domain_name.crt"
         echo -e "自签名证书和私钥已生成！"
     else
-        echo -e "无效的域名或域名不可用，请输入有效的域名！"
+        echo -e "请输入有效的域名！"
         generate_certificate
     fi
 }
@@ -697,32 +696,32 @@ get_ipv6_info() {
 while true; do
   echo "1. IPv4 模式"
   echo "2. IPv6 模式"
-  echo "按回车键选择默认的 IPv4 模式."
+  echo "回车默认IPv4 模式."
 
   read -p "请选择: " choice
 
   case $choice in
     1)
       get_ipv4_info
-      echo "老登你的IP 地址为：$ipwan"
+      echo "IP 地址为：$ipwan"
       ipta="iptables"
       break
       ;;
     2)
       get_ipv6_info
-      echo "老登你的IP 地址为：$ipwan"
+      echo "IP 地址为：$ipwan"
       ipta="ip6tables"
       break
       ;;
     "")
       echo "使用默认的 IPv4 模式。"
       get_ipv4_info
-      echo "老登你的IP 地址为：$ipwan"
+      echo "IP 地址为：$ipwan"
       ipta="iptables"
       break
       ;;
     *)
-      echo "输入无效。请输入1或2，或者按回车键使用默认的 IPv4 模式。"
+      echo "输入无效"
       ;;
   esac
 done
@@ -733,7 +732,7 @@ if [ -f "/root/hy3/ca" ]; then
   echo "$(random_color '/root/hy3/ 文件夹中已存在名为 ca 的文件。跳过添加操作。')"
 else
 
-  echo "$(random_color '请输入你的域名（必须是解析好的域名哦）: ')"
+  echo "$(random_color '请输入你的域名')"
   read -p "" domain
 
   while [ -z "$domain" ]; do
@@ -766,7 +765,7 @@ else
   fi
 fi
 
-echo "$(random_color '请输入你的密码（留空将生成随机密码，不超过20个字符）: ')"
+echo "$(random_color '请输入你的密码（默认随机）: ')"
 read -p "" password
 
 if [ -z "$password" ]; then
@@ -776,7 +775,7 @@ fi
 if sed -i "s/Se7RAuFZ8Lzg/$password/" config.yaml; then
   echo "$(random_color '密码已设置为：')" $password
 else
-  echo "$(random_color '替换密码失败，退出脚本。')"
+  echo "$(random_color '输入错误')"
   exit 1
 fi
 
@@ -794,7 +793,7 @@ else
   exit 1
 fi
    
-    echo "$(random_color '是否要开启端口跳跃功能？如果你不知道是干啥的，就衮吧，不用开启(ง ื▿ ื)ว（回车默认不开启，输入1开启）: ')" 
+    echo "$(random_color '是否要开启端口跳跃功能（回车默认不开启，输入1开启）: ')" 
     read -p "" port_jump 
   
     if [ -z "$port_jump" ]; then 
@@ -898,9 +897,9 @@ echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
 
 if nohup ./hysteria-linux-$arch server & then
   echo "$(random_color '
-  Hysteria 服务器已启动。')"
+  Hysteria 服务已启动。')"
 else
-  echo "$(random_color '启动 Hysteria 服务器失败，退出脚本。')"
+  echo "$(random_color '启动服务失败')"
   exit 1
 fi
 echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
@@ -935,9 +934,9 @@ enable_and_start_service() {
   if [ -f "$hysteria_service_file" ]; then
     systemctl enable hysteria.service
     systemctl start hysteria.service
-    echo "Hysteria服务器服务已启用自启动并成功启动."
+    echo "Hysteria服务器开机自启成功"
   else
-    echo "Hysteria服务文件不存在，请先创建并配置服务文件."
+    echo "Hysteria服务失败"
     exit 1
   fi
 }
@@ -945,13 +944,11 @@ enable_and_start_service() {
 create_and_configure_service
 enable_and_start_service
 
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
 echo "
 完成。
 "
 echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
 
-echo "$(random_color '老登,马上,马上了------')"
 sleep 2
 
 echo "$(random_color '
@@ -963,13 +960,13 @@ echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
 
 if [ -n "$start_port" ] && [ -n "$end_port" ]; then
 
-  echo -e "$(random_color '这是你的Hysteria2节点链接信息，请注意保存哦joker(老登，请使用最新版的neko哦): ')\nhysteria2://$password@$ipwan$domain:$port/?${ovokk}mport=$port,$start_port-$end_port&sni=$domain$domain_name#Hysteria2"
+  echo -e "$(random_color 'Hysteria2节点链接信息: ')\nhysteria2://$password@$ipwan$domain:$port/?${ovokk}mport=$port,$start_port-$end_port&sni=$domain$domain_name#Hysteria2"
   
   echo "hysteria2://$password@$ipwan$domain:$port/?${ovokk}mport=$port,$start_port-$end_port&sni=$domain$domain_name#Hysteria2" > neko.txt
   
 else
 
-  echo -e "$(random_color '这是你的Hysteria2节点链接信息，请注意保存哦小崽子: ')\nhysteria2://$password@$ipwan$domain:$port/?${ovokk}sni=$domain$domain_name#Hysteria2"
+  echo -e "$(random_color 'Hysteria2节点链接信息')\nhysteria2://$password@$ipwan$domain:$port/?${ovokk}sni=$domain$domain_name#Hysteria2"
   
   echo "hysteria2://$password@$ipwan$domain:$port/?${ovokk}sni=$domain$domain_name#Hysteria2" > neko.txt
   
@@ -977,4 +974,4 @@ fi
 
 echo -e "$(random_color '
 
-Hysteria2安装成功，请合理使用哦,你直直-——直直接给我坐下')"
+Hysteria2安装成功')"
