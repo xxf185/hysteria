@@ -78,11 +78,11 @@ inst_cert(){
         cert_path="/root/cert.crt"
         key_path="/root/private.key"
 
-        chmod -R 777 /root # 让 Hysteria 主程序访问到 /root 目录
+        chmod a+x /root # 让 Hysteria 主程序访问到 /root 目录
 
         if [[ -f /root/cert.crt && -f /root/private.key ]] && [[ -s /root/cert.crt && -s /root/private.key ]] && [[ -f /root/ca.log ]]; then
             domain=$(cat /root/ca.log)
-            green "Existing certificate detected for domain: $domain, applying"
+            green "检测到原有域名：$domain 的证书，正在应用"
             hy_domain=$domain
         else
             WARPv4Status=$(curl -s4m8 https://www.cloudflare.com/cdn-cgi/trace -k | grep warp | cut -d= -f2)
