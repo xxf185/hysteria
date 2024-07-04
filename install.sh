@@ -450,15 +450,13 @@ exit
      exit
      ;;
    3)
+echo ""   
 echo "$(random_color '------链接----')" 
 
 cd /root/hy3/
 
 cat /root/hy3/neko.txt
 echo ""
-echo "$(random_color '------clashmate配置------')"
-cat /root/hy3/clash-mate.yaml
-
     exit
     ;;
     
