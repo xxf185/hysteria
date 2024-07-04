@@ -353,10 +353,7 @@ detele_kernel_custom() {
 }
 welcome() {
 echo ""
-echo -e "$(random_color '---------- hysteria2一键脚本----------')"
-echo ""
- 
-}
+ }
 
 echo -e "$(random_color '安装必要依赖中......')"
 install_missing_commands > /dev/null 2>&1
