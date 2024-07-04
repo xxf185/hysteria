@@ -978,6 +978,4 @@ else
   
 fi
 
-echo -e "$(random_color '
-
-Hysteria2安装成功')"
+echo -e "$(random_color 'Hysteria2安装成功')"
