@@ -119,7 +119,7 @@ get_installed_version() {
     if [ -x "/root/hy3/hysteria-linux-$arch" ]; then
         version="$("/root/hy3/hysteria-linux-$arch" version | grep Version | grep -o 'v[.0-9]*')"
     else
-        version="你还没有安装,老登"
+        version="未安装"
     fi
 }
 
@@ -234,9 +234,9 @@ fi
 
 # 检查系统架构
 if [[ $(uname -m) =~ ^(x86_64|amd64) ]]; then
-  echo "正在安装中,请稍后……"
+  echo "正在安装中"
 else
-  echo "系统架构不是 x86/amd64,牢弟,买个好点的吧"
+  echo "系统架构不是 x86/amd64"
   exit 1
 fi
 
@@ -352,17 +352,7 @@ detele_kernel_custom() {
   BBR_grub
 }
 welcome() {
-
-echo -e "$(random_color '
-░██  ░██                                                              
-░██  ░██       ░████        ░█         ░█        ░█░█░█  
-░██  ░██     ░█      █      ░█         ░█        ░█    ░█ 
-░██████     ░██████         ░█         ░█        ░█    ░█ 
-░██  ░██     ░█             ░█ ░█      ░█  ░█     ░█░█░█ 
-░██  ░██      ░██  █         ░█         ░█                   ')"
- echo -e "$(random_color '
-人生有两出悲剧：一是万念俱灰，另一是踌躇满志 ')"
- 
+echo -e ""
 }
 
 echo -e "$(random_color '安装必要依赖中......')"
@@ -425,20 +415,21 @@ echo "卸载完成(ง ื▿ ื)ว."
 welcome
 
 #这些就行提示你输入的😇
-echo "$(random_color '选择一个操作，小崽子(ง ื▿ ื)ว：')"
-echo "1. 安装(以梦为马)"
-echo "2. 卸载(以心为疆)"
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
-echo "3. 查看配置(穿越时空)"
-echo "4. 退出脚本(回到未来)"
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
-echo "5. 在线更新hy2内核(您当前的hy2版本:$version)"
+echo ""
+echo "$(random_color '------hysteria2------')"
+echo ""
+echo "1. 安装"
+echo "2. 卸载"
+echo "3. 查看配置"
+echo "4. 退出脚本"
+echo "5. 更新hy2内核(当前版本:$version)"
 echo "6. 安装xanmod内核(更好的调动网络资源)"
-echo "hy2内核最新版本为： $latest_version"
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
+echo ""
+echo "hy2内核最新版本： $latest_version"
+echo ""
 echo "hysteria2状态: $hy2zt"
 
-read -p "输入操作编号 (1/2/3/4/5): " choice
+read -p "请选择: " choice
 
 case $choice in
    1)
@@ -448,9 +439,9 @@ case $choice in
    2)
 
 uninstall_hysteria > /dev/null 2>&1
-echo -e "$(random_color '你别急,别急,正在卸载......')"
-echo -e "$(random_color '卸载完成,老登ψ(｀∇´)ψ！')"
-
+echo ""
+echo -e "$(random_color '卸载完成')"
+echo ""
 exit
      ;;
 
@@ -459,20 +450,16 @@ exit
      exit
      ;;
    3)
-echo "$(random_color '下面是你的nekobox节点信息')" 
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"   
+echo "$(random_color 'nekobox节点')" 
+
 cd /root/hy3/
 
 cat /root/hy3/neko.txt
 
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
-echo "$(random_color '下面是你的clashmate配置')"
+echo "$(random_color 'clashmate配置')"
 
 cat /root/hy3/clash-mate.yaml
 
-echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
     exit
     ;;
     
@@ -481,7 +468,7 @@ get_updated_version() {
     if [ -x "/root/hy3/hysteria-linux-$arch" ]; then
         version2="$("/root/hy3/hysteria-linux-$arch" version | grep Version | grep -o 'v[.0-9]*')"
     else
-        version2="你还没有安装,老登"
+        version2="未安装"
     fi
 }
 
@@ -505,24 +492,24 @@ rm -r hysteria-linux-$arch
 if wget -O hysteria-linux-$arch https://download.hysteria.network/app/latest/hysteria-linux-$arch; then
   chmod +x hysteria-linux-$arch
 else
-  if wget -O hysteria-linux-$arch https://github.com/apernet/hysteria/releases/download/app/v2.2.4/hysteria-linux-$arch; then
+  if wget -O hysteria-linux-$arch https://github.com/xxf185/hysteria/releases/download/app/v2.2.4/hysteria-linux-$arch; then
     chmod +x hysteria-linux-$arch
   else
-    echo "无法从任何网站下载文件"
+    echo "下载失败"
     exit 1
   fi
 fi
 
 nohup ./hysteria-linux-$arch server &
 
-echo "更新完成,不是哥们,你有什么实力,你直接给我坐下(ง ื▿ ื)ว."
+echo "更新完成"
 }
-echo "$(random_color '正在更新中,别急,老登')"
+echo "$(random_color '正在更新中')"
 sleep 1
 updatehy2 > /dev/null 2>&1
-echo "$(random_color '更新完成,老登')"
+echo "$(random_color '更新完成')"
 get_updated_version
-echo "您当前的更新后hy2版本:$version2"
+echo "当前最新hy2版本:$version2"
     exit
     ;;
    6)
