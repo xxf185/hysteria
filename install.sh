@@ -429,7 +429,7 @@ echo "hy2内核最新版本： $latest_version"
 echo "$(random_color '>>>>>>>>>>>>>>>>>>>>')"
 echo "hysteria2状态: $hy2zt"
 
-read -p "输入操作编号 (1/2/3/4/5): " choice
+read -p "选项: " choice
 
 case $choice in
    1)
