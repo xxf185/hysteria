@@ -946,8 +946,7 @@ echo "
 "
 sleep 2
 
-echo "$(random_color '
-这是你的clash配置:')"
+echo "$(random_color '------clash配置------')"
 cat /root/hy3/clash-mate.yaml
 
 echo ""
