@@ -488,7 +488,7 @@ rm -r hysteria-linux-$arch
 if wget -O hysteria-linux-$arch https://download.hysteria.network/app/latest/hysteria-linux-$arch; then
   chmod +x hysteria-linux-$arch
 else
-  if wget -O hysteria-linux-$arch https://github.com/xxf185/hysteria/releases/download/app/v2.2.4/hysteria-linux-$arch; then
+  if wget -O hysteria-linux-$arch https://github.com/xxf185/hysteria/releases/latest/download/hysteria-linux-$arch; then
     chmod +x hysteria-linux-$arch
   else
     echo "下载失败"
@@ -528,7 +528,7 @@ cd ~/hy3
 if wget -O hysteria-linux-$arch https://download.hysteria.network/app/latest/hysteria-linux-$arch; then
   chmod +x hysteria-linux-$arch
 else
-  if wget -O hysteria-linux-$arch https://github.com/xxf185/hysteria/releases/download/app/v2.2.2/hysteria-linux-$arch; then
+  if wget -O hysteria-linux-$arch https://github.com/xxf185/hysteria/releases/latest/download/hysteria-linux-$arch; then
     chmod +x hysteria-linux-$arch
   else
     echo "下载失败"
