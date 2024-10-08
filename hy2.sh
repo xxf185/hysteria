@@ -244,7 +244,7 @@ insthysteria(){
     fi
     ${PACKAGE_INSTALL} curl wget sudo qrencode procps iptables-persistent netfilter-persistent
 
-    wget -N https://raw.githubusercontent.com/xxf185/hysteria/maimaster/install_server.sh
+    wget -N https://raw.githubusercontent.com/xxf185/hysteria/master/install_server.sh
     bash install_server.sh
     rm -f install_server.sh
 
