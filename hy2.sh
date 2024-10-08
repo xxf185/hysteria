@@ -399,14 +399,14 @@ EOF
     red "======================================================================================"
     green "Hysteria 2 代理服务安装完成"
     yellow "Hysteria 2 客户端 YAML 配置文件 hy-client.yaml 内容如下，并保存到 /root/hy/hy-client.yaml"
-    red "$(cat /root/hy/hy-client.yaml)"
+    green "$(cat /root/hy/hy-client.yaml)"
     yellow "Hysteria 2 客户端 JSON 配置文件 hy-client.json 内容如下，并保存到 /root/hy/hy-client.json"
-    red "$(cat /root/hy/hy-client.json)"
+    green "$(cat /root/hy/hy-client.json)"
     yellow "Clash Meta 客户端配置文件已保存到 /root/hy/clash-meta.yaml"
     yellow "Hysteria 2 节点分享链接如下，并保存到 /root/hy/url.txt"
-    red "$(cat /root/hy/url.txt)"
+    green "$(cat /root/hy/url.txt)"
     yellow "Hysteria 2 节点单端口的分享链接如下，并保存到 /root/hy/url.txt"
-    red "$(cat /root/hy/url-nohop.txt)"
+    green "$(cat /root/hy/url-nohop.txt)"
 }
 
 unsthysteria(){
@@ -543,9 +543,9 @@ showconf(){
     red "$(cat /root/hy/hy-client.json)"
     yellow "Clash Meta 客户端配置文件已保存到 /root/hy/clash-meta.yaml"
     yellow "Hysteria 2 节点分享链接如下，并保存到 /root/hy/url.txt"
-    red "$(cat /root/hy/url.txt)"
+    green "$(cat /root/hy/url.txt)"
     yellow "Hysteria 2 节点单端口的分享链接如下，并保存到 /root/hy/url.txt"
-    red "$(cat /root/hy/url-nohop.txt)"
+    green "$(cat /root/hy/url-nohop.txt)"
 }
 
 update_core(){
