@@ -549,7 +549,7 @@ showconf(){
 }
 
 update_core(){
-    wget -N https://raw.githubusercontent.com/Misaka-blog/hysteria-install/main/hy2/install_server.sh
+    wget -N https://raw.githubusercontent.com/xxf185/hysteria/master/install_server.sh
     bash install_server.sh
     
     rm -f install_server.sh
