@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# https://github.com/GeorgianaBlake/Hysteria2
+# https://github.com/xxf185/hysteria
 # Hysteria2一键管理脚本：安装/更新/查看/更改端口/更改密码/删除
 # 适配 Debian/Ubuntu (apt) 与 CentOS/RHEL/Alma/Rocky (yum/dnf)
 
@@ -389,7 +389,7 @@ hr() { printf '%*s\n' 40 '' | tr ' ' '='; }
 draw_header() {
   hr
   echo -e " Hysteria2 一键管理"
-  echo -e " https://github.com/GeorgianaBlake/Hysteria2"
+  echo -e " https://github.com/xxf185/hysteria"
   echo -e " 当前脚本版本: ${Magenta}${SHELL_VERSION}${Font}"
   echo -e " 安装状态：$(status_text)"
   hr
