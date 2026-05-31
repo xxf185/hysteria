@@ -12,7 +12,7 @@ CLIENT_FILE="${CONF_DIR}/hyclient.txt" # 文本清单
 TZ_DEFAULT="Asia/Shanghai" # 默认时区
 SHELL_VERSION="0.1.0" # 版本
 H2_SNI="www.bing.com"  # 伪装域名
-H2_ALIASES="Hysteria2" # 别名
+H2_ALIASES="hy2" # 别名
 
 # 字体颜色配置
 Font="\033[0m"
@@ -400,12 +400,12 @@ menu() {
     clear
     draw_header
     if is_installed; then
-      echo -e "${Cyan}1. 重新安装（覆盖并重置端口/密码）${Font}"
-      echo -e "${Cyan}2. 更新 Hysteria2${Font}"
+      echo -e "${Cyan}1. 重新安装 ${Font}"
+      echo -e "${Cyan}2. 更新core ${Font}"
       echo -e "${Cyan}3. 查看当前配置${Font}"
       echo -e "${Cyan}4. 更改端口${Font}"
       echo -e "${Cyan}5. 更改密码${Font}"
-      echo -e "${Cyan}6. 卸载并删除配置${Font}"
+      echo -e "${Cyan}6. 卸载${Font}"
       echo -e "${Cyan}0. 退出${Font}"
       hr
       read -p "请输入数字 [0-6]: " choice
