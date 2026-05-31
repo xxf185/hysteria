@@ -285,7 +285,7 @@ install_hy2() {
   timedatectl set-timezone "${TZ_DEFAULT}" || true
   os_install
   echo "开始安装 Hysteria2..."
-  bash <(curl -fsSL https://get.hy2.sh/)
+  bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/hysteria/master/install_server.sh)
   ensure_cert
 
   local port pass
@@ -311,7 +311,7 @@ update_hy2() {
   fi
   os_install
   echo "更新 Hysteria2 到最新版..."
-  bash <(curl -fsSL https://get.hy2.sh/)
+  bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/hysteria/master/install_server.sh)
   restart_service
   client_export
   echo -e "${OK} 更新完成。"
