@@ -244,7 +244,7 @@ client_export() {
   link="${pass}@${ip}:${port}/?insecure=1&sni=${H2_SNI}#${H2_ALIASES}"
 
   cat > "${CLIENT_FILE}" <<EOF
-=========== Hysteria2 配置参数 ===========
+=========== Hysteria2 配置 ===========
 代理模式：Hysteria2
 地址：${ip}
 端口：${port}
@@ -253,7 +253,7 @@ SNI：${H2_SNI}
 传输协议：tls
 跳过证书验证：true
 =========================================
-链接（可复制导入）：
+链接：
 hysteria2://${link}
 EOF
 }
