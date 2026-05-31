@@ -306,7 +306,7 @@ install_hy2() {
 
 update_hy2() {
   if ! is_installed; then
-    echo -e "${WARN} 未安装，无法更新。请先安装。"
+    echo -e "${WARN} 未安装"
     return
   fi
   os_install
@@ -344,7 +344,7 @@ set_port() {
 set_password() {
   if ! require_installed; then return; fi
   local new_pass
-  read -p "回车随机生成密码，或输入自定义密码：" new_pass || true
+  read -p "回车随机生成密码：" new_pass || true
   if [[ -z "${new_pass:-}" ]]; then
     new_pass=$(gen_password)
   fi
@@ -363,10 +363,10 @@ set_password() {
 
 uninstall_hy2() {
   if ! is_installed; then
-    echo -e "${WARN} 未安装，无需卸载。"
+    echo -e "${WARN} 未安装"
     return
   fi
-  read -p "确认卸载并删除配置与证书？(y/N): " ans
+  read -p "确认卸载？(y/N): " ans
   if [[ "${ans:-N}" != [yY] ]]; then
     echo "已取消。"
     return
@@ -402,13 +402,13 @@ menu() {
     if is_installed; then
       echo -e "${Cyan}1. 重新安装 ${Font}"
       echo -e "${Cyan}2. 更新core ${Font}"
-      echo -e "${Cyan}3. 查看当前配置${Font}"
-      echo -e "${Cyan}4. 更改端口${Font}"
-      echo -e "${Cyan}5. 更改密码${Font}"
-      echo -e "${Cyan}6. 卸载${Font}"
-      echo -e "${Cyan}0. 退出${Font}"
+      echo -e "${Cyan}3. 查看当前配置 ${Font}"
+      echo -e "${Cyan}4. 更改端口 ${Font}"
+      echo -e "${Cyan}5. 更改密码 ${Font}"
+      echo -e "${Cyan}6. 卸载 ${Font}"
+      echo -e "${Cyan}0. 退出 ${Font}"
       hr
-      read -p "请输入数字 [0-6]: " choice
+      read -p "选项 [0-6]: " choice
       case "${choice}" in
         1) install_hy2 "force"; pause ;;
         2) update_hy2; pause ;;
@@ -423,7 +423,7 @@ menu() {
       echo -e "${Cyan}1. 安装${Font}"
       echo -e "${Cyan}0. 退出${Font}"
       hr
-      read -p "请输入数字 [0-1]: " choice
+      read -p "选项 [0-1]: " choice
       case "${choice}" in
         1) install_hy2; pause ;;
         0) exit 0 ;;
