@@ -427,7 +427,7 @@ menu() {
       case "${choice}" in
         1) install_hy2; pause ;;
         0) exit 0 ;;
-        *) echo "未安装，只有 [1 安装] 或 [0 退出] 可用"; pause ;;
+        *) echo "未安装"; pause ;;
       esac
     fi
   done
