@@ -11,7 +11,7 @@ CONF_FILE="${CONF_DIR}/config.yaml" # 主配置文件
 CLIENT_FILE="${CONF_DIR}/hyclient.txt" # 文本清单
 TZ_DEFAULT="Asia/Shanghai" # 默认时区
 SHELL_VERSION="0.1.0" # 版本
-H2_SNI="bing.com"  # 伪装域名
+H2_SNI="www.bing.com"  # 伪装域名
 H2_ALIASES="Hysteria2" # 别名
 
 # 字体颜色配置
