@@ -89,7 +89,7 @@ install_hysteria2_binary() {
     mkdir -p $HYSTERIA_BIN_DIR
     
     # 获取最新版本
-    HYSTERIA_VERSION=$(curl -s "https://api.github.com/repos/apernet/hysteria/releases/latest" | grep "tag_name" | cut -d'"' -f4 | sed 's/v//')
+    HYSTERIA_VERSION=$(curl -s "https://api.github.com/repos/xxf185/hysteria/releases/latest" | grep "tag_name" | cut -d'"' -f4 | sed 's/v//')
     print_info "Hysteria2 最新版本: $HYSTERIA_VERSION"
     
     cd /tmp
@@ -111,7 +111,7 @@ install_hysteria2_binary() {
     rm -f $HYSTERIA_FILE
     
     print_info "下载 $HYSTERIA_FILE..."
-    if ! wget -q "https://github.com/apernet/hysteria/releases/download/v${HYSTERIA_VERSION}/${HYSTERIA_FILE}"; then
+    if ! wget -q "https://github.com/xxf185/hysteria/releases/download/v${HYSTERIA_VERSION}/${HYSTERIA_FILE}"; then
         print_error "下载失败，请检查网络连接"
         return 1
     fi
@@ -484,7 +484,7 @@ HYSTERIA_CONFIG_DIR="/etc/hysteria2"
 echo -e "${BLUE}[INFO]${NC} 检查 Hysteria2 更新..."
 
 # 获取最新版本
-LATEST_VERSION=$(curl -s "https://api.github.com/repos/apernet/hysteria/releases/latest" | grep "tag_name" | cut -d'"' -f4 | sed 's/v//')
+LATEST_VERSION=$(curl -s "https://api.github.com/repos/xxf185/hysteria/releases/latest" | grep "tag_name" | cut -d'"' -f4 | sed 's/v//')
 CURRENT_VERSION=$(cat $HYSTERIA_CONFIG_DIR/version.txt 2>/dev/null || echo "unknown")
 
 echo -e "${BLUE}[INFO]${NC} 当前版本: $CURRENT_VERSION"
@@ -517,7 +517,7 @@ fi
 HYSTERIA_FILE="hysteria-linux-${ARCH}"
 
 echo -e "${BLUE}[INFO]${NC} 下载新版本..."
-if ! wget -q "https://github.com/apernet/hysteria/releases/download/v${LATEST_VERSION}/${HYSTERIA_FILE}"; then
+if ! wget -q "https://github.com/xxf185/hysteria/releases/download/v${LATEST_VERSION}/${HYSTERIA_FILE}"; then
     echo -e "${RED}[ERROR]${NC} 下载失败"
     systemctl start hysteria2
     exit 1
