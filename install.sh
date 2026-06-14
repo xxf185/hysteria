@@ -111,7 +111,7 @@ install_hysteria2_binary() {
     rm -f $HYSTERIA_FILE
     
     print_info "下载 $HYSTERIA_FILE..."
-    if ! wget -q "https://github.com/xxf185/hysteria/releases/download/v${HYSTERIA_VERSION}/${HYSTERIA_FILE}"; then
+    if ! wget -q "https://github.com/xxf185/hysteria/releases/latest/download/${HYSTERIA_FILE}"; then
         print_error "下载失败，请检查网络连接"
         return 1
     fi
@@ -517,7 +517,7 @@ fi
 HYSTERIA_FILE="hysteria-linux-${ARCH}"
 
 echo -e "${BLUE}[INFO]${NC} 下载新版本..."
-if ! wget -q "https://github.com/xxf185/hysteria/releases/download/v${LATEST_VERSION}/${HYSTERIA_FILE}"; then
+if ! wget -q "https://github.com/xxf185/hysteria/releases/latest/download/${HYSTERIA_FILE}"; then
     echo -e "${RED}[ERROR]${NC} 下载失败"
     systemctl start hysteria2
     exit 1
