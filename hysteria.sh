@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Hysteria2 配置管理脚本一键安装脚本
-# 使用方法: curl -fsSL https://raw.githubusercontent.com/xxf185/hysteria/main/quick-install.sh | sudo bash
-# 调试模式: curl -fsSL https://raw.githubusercontent.com/xxf185/hysteria/main/quick-install.sh | sudo bash -s -- --debug
+# 使用方法: curl -fsSL https://raw.githubusercontent.com/xxf185/hysteria/main/hysteria.sh | sudo bash
+# 调试模式: curl -fsSL https://raw.githubusercontent.com/xxf185/hysteria/main/hysteria.sh | sudo bash -s -- --debug
 
 # 检查是否启用调试模式
 if [[ "$1" == "--debug" ]]; then
