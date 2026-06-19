@@ -178,7 +178,7 @@ obfs:
 
             # Print client configs
             echo "v2rayN client config:"
-            v2rayN_config="server: $domain:$new_port
+            v2rayN_config="server: $current_domain:$new_port
 auth: $new_password
 tls:
   sni: $current_domain
@@ -189,7 +189,7 @@ socks5:
 http:
   listen: 127.0.0.1:10809"
             if [ -n "$new_obfs_password" ]; then
-                v2rayN_config="server: $domain:$new_port
+                v2rayN_config="server: $current_domain:$new_port
 auth: $new_password
 obfs:
   type: salamander
@@ -209,9 +209,9 @@ http:
 
             echo "-----链接-----"
             if [ -n "$new_obfs_password" ]; then
-                nekobox_url="hysteria2://$new_password@$domain:$new_port/?insecure=0&sni=$domain&obfs=salamander&obfs-password=$new_obfs_password#hy2"
+                nekobox_url="hysteria2://$new_password@$current_domain:$new_port/?insecure=0&sni=$current_domain&obfs=salamander&obfs-password=$new_obfs_password#hy2"
             else
-                nekobox_url="hysteria2://$new_password@$domain:$new_port/?insecure=0&sni=$domain#hy2"
+                nekobox_url="hysteria2://$new_password@$current_domain:$new_port/?insecure=0&sni=$current_domain#hy2"
             fi
             echo "$nekobox_url"
             echo ""
@@ -245,7 +245,7 @@ http:
 
             echo ""
             echo "v2rayN 客户端配置"
-            v2rayN_config="server: $domain:$current_port
+            v2rayN_config="server: $current_domain:$current_port
 auth: $current_password
 tls:
   sni: $current_domain
@@ -256,7 +256,7 @@ socks5:
 http:
   listen: 127.0.0.1:10809"
             if [ -n "$current_obfs_password" ]; then
-                v2rayN_config="server: $domain:$current_port
+                v2rayN_config="server: $current_domain:$current_port
 auth: $current_password
 obfs:
   type: salamander
@@ -276,9 +276,9 @@ http:
 
             echo "-----链接-----"
             if [ -n "$current_obfs_password" ]; then
-                nekobox_url="hysteria2://$current_password@$domain:$current_port/?insecure=0&sni=$domain&obfs=salamander&obfs-password=$current_obfs_password#hy2"
+                nekobox_url="hysteria2://$current_password@$current_domain:$current_port/?insecure=0&sni=$current_domain&obfs=salamander&obfs-password=$current_obfs_password#hy2"
             else
-                nekobox_url="hysteria2://$current_password@$domain:$current_port/?insecure=0&sni=$domain#hy2"
+                nekobox_url="hysteria2://$current_password@$current_domain:$current_port/?insecure=0&sni=$current_domain#hy2"
             fi
             echo "$nekobox_url"
             echo ""
@@ -500,7 +500,7 @@ echo "======================================"
 echo ""
 echo "v2rayN 客户端配置"
 echo ""
-v2rayN_config="server: $domain:$port
+v2rayN_config="server: $current_domain:$port
 auth: $password
 tls:
   sni: $current_domain
