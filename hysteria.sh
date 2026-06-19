@@ -71,7 +71,7 @@ if [ -d "/etc/hysteria" ] && [ -f "/etc/hysteria/config.yaml" ]; then
             # Read current settings from config
             current_port=$(grep -oP 'listen: :\K\d+' /etc/hysteria/config.yaml || echo "443")
             current_password=$(awk '/^auth:/{f=1; next} f && /^[^ ]/{f=0} f && /password:/{print $2; exit}' /etc/hysteria/config.yaml)
-            current_domain=$(grep -oP 'cert: .*/live/\K[^/]+' /etc/hysteria/config.yaml || echo "example.com")
+            current_domain=$(grep -oP 'cert: .*/live/\K[^/]+' /etc/hysteria/config.yaml || echo "$domain")
             current_obfs_password=$(awk '/^obfs:/{f=1; next} f && /^[^ ]/{f=0} f && /password:/{print $2; exit}' /etc/hysteria/config.yaml)
             
             echo ""
