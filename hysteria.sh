@@ -209,9 +209,9 @@ http:
 
             echo "-----链接-----"
             if [ -n "$new_obfs_password" ]; then
-                nekobox_url="hysteria2://$new_password@$current_domain:$new_port/?insecure=0&sni=$current_domain&obfs=salamander&obfs-password=$new_obfs_password#hy2"
+                nekobox_url="hysteria2://$new_password@$domain:$new_port/?insecure=0&sni=$domain&obfs=salamander&obfs-password=$new_obfs_password#hy2"
             else
-                nekobox_url="hysteria2://$new_password@$current_domain:$new_port/?insecure=0&sni=$current_domain#hy2"
+                nekobox_url="hysteria2://$new_password@$domain:$new_port/?insecure=0&sni=$domain#hy2"
             fi
             echo "$nekobox_url"
             echo ""
