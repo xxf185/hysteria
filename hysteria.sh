@@ -178,10 +178,10 @@ obfs:
 
             # Print client configs
             echo "v2rayN client config:"
-            v2rayN_config="server: $current_domain:$new_port
+            v2rayN_config="server: $domain:$new_port
 auth: $new_password
 tls:
-  sni: $current_domain
+  sni: $domain
   insecure: false
 fastOpen: true
 socks5:
@@ -189,14 +189,14 @@ socks5:
 http:
   listen: 127.0.0.1:10809"
             if [ -n "$new_obfs_password" ]; then
-                v2rayN_config="server: $current_domain:$new_port
+                v2rayN_config="server: $domain:$new_port
 auth: $new_password
 obfs:
   type: salamander
   salamander:
     password: $new_obfs_password
 tls:
-  sni: $current_domain
+  sni: $domain
   insecure: false
 fastOpen: true
 socks5:
@@ -209,9 +209,9 @@ http:
 
             echo "-----链接-----"
             if [ -n "$new_obfs_password" ]; then
-                nekobox_url="hysteria2://$new_password@$current_domain:$new_port/?insecure=0&sni=$current_domain&obfs=salamander&obfs-password=$new_obfs_password#hy2"
+                nekobox_url="hysteria2://$new_password@$domain:$new_port/?insecure=0&sni=$domain&obfs=salamander&obfs-password=$new_obfs_password#hy2"
             else
-                nekobox_url="hysteria2://$new_password@$current_domain:$new_port/?insecure=0&sni=$current_domain#hy2"
+                nekobox_url="hysteria2://$new_password@$domain:$new_port/?insecure=0&sni=$domain#hy2"
             fi
             echo "$nekobox_url"
             echo ""
@@ -240,15 +240,15 @@ http:
             # Show current link
             current_port=$(grep -oP 'listen: :\K\d+' /etc/hysteria/config.yaml || echo "443")
             current_password=$(awk '/^auth:/{f=1; next} f && /^[^ ]/{f=0} f && /password:/{print $2; exit}' /etc/hysteria/config.yaml)
-            current_domain=$(grep -oP 'cert: .*/live/\K[^/]+' /etc/hysteria/config.yaml || echo "example.com")
+            current_domain=$(grep -oP 'cert: .*/live/\K[^/]+' /etc/hysteria/config.yaml || echo "$domain")
             current_obfs_password=$(awk '/^obfs:/{f=1; next} f && /^[^ ]/{f=0} f && /password:/{print $2; exit}' /etc/hysteria/config.yaml)
 
             echo ""
             echo "v2rayN 客户端配置"
-            v2rayN_config="server: $current_domain:$current_port
+            v2rayN_config="server: $domain:$current_port
 auth: $current_password
 tls:
-  sni: $current_domain
+  sni: $domain
   insecure: false
 fastOpen: true
 socks5:
@@ -256,14 +256,14 @@ socks5:
 http:
   listen: 127.0.0.1:10809"
             if [ -n "$current_obfs_password" ]; then
-                v2rayN_config="server: $current_domain:$current_port
+                v2rayN_config="server: $domain:$current_port
 auth: $current_password
 obfs:
   type: salamander
   salamander:
     password: $current_obfs_password
 tls:
-  sni: $current_domain
+  sni: $domain
   insecure: false
 fastOpen: true
 socks5:
@@ -276,9 +276,9 @@ http:
 
             echo "-----链接-----"
             if [ -n "$current_obfs_password" ]; then
-                nekobox_url="hysteria2://$current_password@$current_domain:$current_port/?insecure=0&sni=$current_domain&obfs=salamander&obfs-password=$current_obfs_password#hy2"
+                nekobox_url="hysteria2://$current_password@$domain:$current_port/?insecure=0&sni=$domain&obfs=salamander&obfs-password=$current_obfs_password#hy2"
             else
-                nekobox_url="hysteria2://$current_password@$current_domain:$current_port/?insecure=0&sni=$current_domain#hy2"
+                nekobox_url="hysteria2://$current_password@$domain:$current_port/?insecure=0&sni=$domain#hy2"
             fi
             echo "$nekobox_url"
             echo ""
