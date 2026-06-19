@@ -181,7 +181,7 @@ obfs:
             v2rayN_config="server: $domain:$new_port
 auth: $new_password
 tls:
-  sni: current_domain
+  sni: $current_domain
   insecure: false
 fastOpen: true
 socks5:
@@ -196,7 +196,7 @@ obfs:
   salamander:
     password: $new_obfs_password
 tls:
-  sni: current_domain
+  sni: $current_domain
   insecure: false
 fastOpen: true
 socks5:
@@ -248,7 +248,7 @@ http:
             v2rayN_config="server: $domain:$current_port
 auth: $current_password
 tls:
-  sni: current_domain
+  sni: $current_domain
   insecure: false
 fastOpen: true
 socks5:
@@ -263,7 +263,7 @@ obfs:
   salamander:
     password: $current_obfs_password
 tls:
-  sni: current_domain
+  sni: $current_domain
   insecure: false
 fastOpen: true
 socks5:
@@ -503,7 +503,7 @@ echo ""
 v2rayN_config="server: $domain:$port
 auth: $password
 tls:
-  sni: current_domain
+  sni: $current_domain
   insecure: false
 fastOpen: true
 socks5:
@@ -518,7 +518,7 @@ obfs:
   salamander:
     password: $obfs_password
 tls:
-  sni: current_domain
+  sni: $current_domain
   insecure: false
 fastOpen: true
 socks5:
