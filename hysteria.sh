@@ -38,7 +38,7 @@ install_required_packages() {
 # Function to update Hysteria binary
 update_hysteria() {
     echo "Updating Hysteria to the latest version..."
-    bash <(curl -fsSL https://get.hy2.sh/) > /dev/null 2>&1
+    bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/hysteria/master/install_server.sh) > /dev/null 2>&1
     systemctl restart hysteria-server
     echo "Hysteria updated successfully!"
 }
@@ -212,9 +212,9 @@ http:
 
             echo "NekoBox/NekoRay URL:"
             if [ -n "$new_obfs_password" ]; then
-                nekobox_url="hysteria2://$new_password@$current_domain:$new_port/?insecure=0&sni=$current_domain&obfs=salamander&obfs-password=$new_obfs_password#Hysteria2-$((RANDOM % 9000 + 1000))"
+                nekobox_url="hysteria2://$new_password@$current_domain:$new_port/?insecure=0&sni=$current_domain&obfs=salamander&obfs-password=$new_obfs_password#hy2"
             else
-                nekobox_url="hysteria2://$new_password@$current_domain:$new_port/?insecure=0&sni=$current_domain#Hysteria2-$((RANDOM % 9000 + 1000))"
+                nekobox_url="hysteria2://$new_password@$current_domain:$new_port/?insecure=0&sni=$current_domain#hy2"
             fi
             echo "$nekobox_url"
             echo ""
@@ -279,9 +279,9 @@ http:
 
             echo "NekoBox/NekoRay URL:"
             if [ -n "$current_obfs_password" ]; then
-                nekobox_url="hysteria2://$current_password@$current_domain:$current_port/?insecure=0&sni=$current_domain&obfs=salamander&obfs-password=$current_obfs_password#Hysteria2-$((RANDOM % 9000 + 1000))"
+                nekobox_url="hysteria2://$current_password@$current_domain:$current_port/?insecure=0&sni=$current_domain&obfs=salamander&obfs-password=$current_obfs_password#hy2"
             else
-                nekobox_url="hysteria2://$current_password@$current_domain:$current_port/?insecure=0&sni=$current_domain#Hysteria2-$((RANDOM % 9000 + 1000))"
+                nekobox_url="hysteria2://$current_password@$current_domain:$current_port/?insecure=0&sni=$current_domain#hy2"
             fi
             echo "$nekobox_url"
             echo ""
@@ -299,7 +299,7 @@ install_required_packages
 
 # Step 1: Install Hysteria using official script
 echo "Installing Hysteria..."
-bash <(curl -fsSL https://get.hy2.sh/) > /dev/null 2>&1
+bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/hysteria/master/install_server.sh) > /dev/null 2>&1
 
 # Step 2: Certbot domain setup
 echo ""
@@ -534,9 +534,9 @@ echo ""
 echo "NekoBox/NekoRay URL:"
 echo ""
 if [ -n "$obfs_password" ]; then
-    nekobox_url="hysteria2://$password@$domain:$port/?insecure=0&sni=$domain&obfs=salamander&obfs-password=$obfs_password#Hysteria2-$((RANDOM % 9000 + 1000))"
+    nekobox_url="hysteria2://$password@$domain:$port/?insecure=0&sni=$domain&obfs=salamander&obfs-password=$obfs_password#hy2"
 else
-    nekobox_url="hysteria2://$password@$domain:$port/?insecure=0&sni=$domain#Hysteria2-$((RANDOM % 9000 + 1000))"
+    nekobox_url="hysteria2://$password@$domain:$port/?insecure=0&sni=$domain#hy2"
 fi
 echo "$nekobox_url"
 echo ""
