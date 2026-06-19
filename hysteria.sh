@@ -232,7 +232,7 @@ http:
             rm -f /etc/systemd/system/hysteria-server@.service
             rm -rf /etc/systemd/system/hysteria-server.service.d
             systemctl daemon-reload
-            echo "Hysteria uninstalled successfully!"
+            echo "Hysteria 卸载完成！"
             echo ""
             exit 0
             ;;
