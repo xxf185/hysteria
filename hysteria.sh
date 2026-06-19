@@ -503,7 +503,7 @@ echo ""
 v2rayN_config="server: $current_domain:$port
 auth: $password
 tls:
-  sni: $current_domain
+  sni: $domain
   insecure: false
 fastOpen: true
 socks5:
@@ -518,7 +518,7 @@ obfs:
   salamander:
     password: $obfs_password
 tls:
-  sni: $current_domain
+  sni: $domain
   insecure: false
 fastOpen: true
 socks5:
