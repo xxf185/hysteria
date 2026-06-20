@@ -60,7 +60,6 @@ inst_cert(){
     echo ""
     read -rp "选项: " certInput
     if [[ $certInput == 1 ]]; then
-
         green "将使用必应自签证书作为 Hysteria 2 的节点证书"
 
         cert_path="/etc/hysteria/cert.crt"
