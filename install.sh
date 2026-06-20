@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # https://github.com/xxf185/hysteria
 # Hysteria2一键管理脚本：安装/更新/查看/更改端口/更改密码/删除
 # 适配 Debian/Ubuntu (apt) 与 CentOS/RHEL/Alma/Rocky (yum/dnf)
@@ -425,6 +426,3 @@ menu() {
   done
 }
 
-# -------- 主流程 --------
-ensure_root
-menu
