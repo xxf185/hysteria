@@ -58,7 +58,8 @@ inst_cert(){
     echo -e " ${GREEN}1.${PLAIN} 必应自签证书 ${YELLOW}（默认）${PLAIN}"
 
     echo ""
-    read -rp "[[ $certInput == 1 ]]" certInput ; then
+    read -rp "选项: " certInput
+    if [[ $certInput == 1 ]]; then
 
         green "将使用必应自签证书作为 Hysteria 2 的节点证书"
 
