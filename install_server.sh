@@ -843,7 +843,7 @@ check_update() {
   if [[ -n "$_installed_version" ]]; then
     echo "$_installed_version"
   else
-    echo "not installed"
+    echo "未安装"
   fi
 
   echo -ne "检查最新版本... "
