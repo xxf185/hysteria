@@ -241,7 +241,7 @@ client_export() {
   fi
   pass=$(sed -nE 's/^[[:space:]]*password:[[:space:]]*(.*)$/\1/p' "${CONF_FILE}")
   ip=$(get_ip)
-  link="${pass}@${ip}:${port}/?insecure=1&sni=${H2_SNI}#${H2_ALIASES}"
+  link="${pass}@${ip}:${port}/?insecure=0&sni=${H2_SNI}#${H2_ALIASES}"
 
   cat > "${CLIENT_FILE}" <<EOF
 =========== Hysteria2 配置 ===========
@@ -1406,7 +1406,7 @@ client_export() {
   fi
   pass=$(sed -nE 's/^[[:space:]]*password:[[:space:]]*(.*)$/\1/p' "${CONF_FILE}")
   ip=$(get_ip)
-  link="${pass}@${ip}:${port}/?insecure=1&sni=${H2_SNI}#${H2_ALIASES}"
+  link="${pass}@${ip}:${port}/?insecure=0&sni=${H2_SNI}#${H2_ALIASES}"
 
   cat > "${CLIENT_FILE}" <<EOF
 =========== Hysteria2 配置 ===========
