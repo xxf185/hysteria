@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # install_server.sh - hysteria server install script
 # Try `install_server.sh --help` for usage.
