@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# https://github.com/GeorgianaBlake/Hysteria2
+# https://github.com/xxf185/hysteria
 # Hysteria2一键管理脚本：安装/更新/查看/更改端口/更改密码/删除
 # 适配 Debian/Ubuntu (apt) 与 CentOS/RHEL/Alma/Rocky (yum/dnf)
 
@@ -11,8 +11,8 @@ CONF_FILE="${CONF_DIR}/config.yaml" # 主配置文件
 CLIENT_FILE="${CONF_DIR}/hyclient.txt" # 文本清单
 TZ_DEFAULT="Asia/Shanghai" # 默认时区
 SHELL_VERSION="0.1.0" # 版本
-H2_SNI="bing.com"  # 伪装域名
-H2_ALIASES="Hysteria2" # 别名
+H2_SNI="www.bing.com"  # 伪装域名
+H2_ALIASES="hy2" # 别名
 
 # 字体颜色配置
 Font="\033[0m"
@@ -285,7 +285,7 @@ install_hy2() {
   timedatectl set-timezone "${TZ_DEFAULT}" || true
   os_install
   echo "开始安装 Hysteria2..."
-  bash <(curl -fsSL https://get.hy2.sh/)
+  bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/hysteria/refs/heads/master/install_server.sh)
   ensure_cert
 
   local port pass
@@ -311,7 +311,7 @@ update_hy2() {
   fi
   os_install
   echo "更新 Hysteria2 到最新版..."
-  bash <(curl -fsSL https://get.hy2.sh/)
+  bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/hysteria/refs/heads/master/install_server.sh)
   restart_service
   client_export
   echo -e "${OK} 更新完成。"
@@ -389,7 +389,7 @@ hr() { printf '%*s\n' 40 '' | tr ' ' '='; }
 draw_header() {
   hr
   echo -e " Hysteria2 一键管理"
-  echo -e " https://github.com/GeorgianaBlake/Hysteria2"
+  echo -e " https://github.com/xxf185/hysteria"
   echo -e " 当前脚本版本: ${Magenta}${SHELL_VERSION}${Font}"
   echo -e " 安装状态：$(status_text)"
   hr
