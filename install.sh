@@ -400,34 +400,26 @@ menu() {
     clear
     draw_header
     if is_installed; then
-      echo -e "${Cyan}1. 重新安装 ${Font}"
-      echo -e "${Cyan}2. 更新core ${Font}"
-      echo -e "${Cyan}3. 查看当前配置 ${Font}"
-      echo -e "${Cyan}4. 更改端口 ${Font}"
-      echo -e "${Cyan}5. 更改密码 ${Font}"
-      echo -e "${Cyan}6. 卸载 ${Font}"
+      echo -e "${Cyan}1. 安装${Font}"
+      echo -e "${Cyan}2. 重新安装 ${Font}"
+      echo -e "${Cyan}3. 更新core ${Font}"
+      echo -e "${Cyan}4. 查看当前配置 ${Font}"
+      echo -e "${Cyan}5. 更改端口 ${Font}"
+      echo -e "${Cyan}6. 更改密码 ${Font}"
+      echo -e "${Cyan}7. 卸载 ${Font}"
       echo -e "${Cyan}0. 退出 ${Font}"
       hr
       read -p "选项 [0-6]: " choice
       case "${choice}" in
-        1) install_hy2 "force"; pause ;;
-        2) update_hy2; pause ;;
-        3) view_hy2; quit ;;
-        4) set_port; pause ;;
-        5) set_password; pause ;;
-        6) uninstall_hy2; pause ;;
+        1) install_hy2; pause ;;
+        2) install_hy2 "force"; pause ;;
+        3) update_hy2; pause ;;
+        4) view_hy2; quit ;;
+        5) set_port; pause ;;
+        6) set_password; pause ;;
+        7) uninstall_hy2; pause ;;
         0) exit 0 ;;
         *) echo "无效选项"; pause ;;
-      esac
-    else
-      echo -e "${Cyan}1. 安装${Font}"
-      echo -e "${Cyan}0. 退出${Font}"
-      hr
-      read -p "选项 [0-1]: " choice
-      case "${choice}" in
-        1) install_hy2; pause ;;
-        0) exit 0 ;;
-        *) echo "未安装"; pause ;;
       esac
     fi
   done
