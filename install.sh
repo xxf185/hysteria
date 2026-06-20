@@ -424,5 +424,7 @@ menu() {
       esac
 }
 
+# -------- 主流程 --------
+ensure_root
 menu
 
