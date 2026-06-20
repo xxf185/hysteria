@@ -53,7 +53,7 @@ realip(){
 }
 
 inst_cert(){
-    green "Hysteria 2 协议证书申请方式如下："
+    green "Hysteria 2 协议证书申请"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 必应自签证书 ${YELLOW}（默认）${PLAIN}"
 
@@ -389,25 +389,7 @@ changepasswd(){
     green "Hysteria 2 节点密码已成功修改为：$passwd"
     yellow "请手动更新客户端配置文件以使用节点"
     showconf
-}
 
-change_cert(){
-    old_cert=$(cat /etc/hysteria/config.yaml | grep cert | awk -F " " '{print $2}')
-    old_key=$(cat /etc/hysteria/config.yaml | grep key | awk -F " " '{print $2}')
-    old_hydomain=$(cat /root/hy/hy-client.yaml | grep sni | awk '{print $2}')
-
-    inst_cert
-
-    sed -i "s!$old_cert!$cert_path!g" /etc/hysteria/config.yaml
-    sed -i "s!$old_key!$key_path!g" /etc/hysteria/config.yaml
-    sed -i "6s/$old_hydomain/$hy_domain/g" /root/hy/hy-client.yaml
-    sed -i "5s/$old_hydomain/$hy_domain/g" /root/hy/hy-client.json
-
-    stophysteria && starthysteria
-
-    green "Hysteria 2 节点证书类型已成功修改"
-    yellow "请手动更新客户端配置文件以使用节点"
-    showconf
 }
 
 changeproxysite(){
@@ -426,15 +408,13 @@ changeconf(){
     green "Hysteria 2 配置变更选择如下:"
     echo -e " ${GREEN}1.${PLAIN} 修改端口"
     echo -e " ${GREEN}2.${PLAIN} 修改密码"
-    echo -e " ${GREEN}3.${PLAIN} 修改证书类型"
-    echo -e " ${GREEN}4.${PLAIN} 修改伪装网站"
+    echo -e " ${GREEN}3.${PLAIN} 修改伪装网站"
     echo ""
     read -p " 请选择操作 [1-4]：" confAnswer
     case $confAnswer in
         1 ) changeport ;;
         2 ) changepasswd ;;
-        3 ) change_cert ;;
-        4 ) changeproxysite ;;
+        3 ) changeproxysite ;;
         * ) exit 1 ;;
     esac
 }
