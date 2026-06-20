@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # https://github.com/xxf185/hysteria
 # Hysteria2一键管理脚本：安装/更新/查看/更改端口/更改密码/删除
