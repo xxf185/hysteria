@@ -422,7 +422,7 @@ menu() {
         0) exit 0 ;;
         *) echo "无效选项"; pause ;;
       esac
-   }
+}
 
   menu
 
