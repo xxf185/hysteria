@@ -434,11 +434,11 @@ EOF
     # 生成节点分享链接
     if [[ -n $firstport ]]; then
         # 端口跳跃模式：主端口 + mport 参数携带跳跃范围
-        url="hysteria2://$auth_pwd@$last_ip:$port/?insecure=1&sni=$hy_domain&obfs=salamander&obfs-password=$obfs_pwd&mport=$firstport-$endport#SheepKeeperS-Hysteria2"
-        nohopurl="hysteria2://$auth_pwd@$last_ip:$port/?insecure=1&sni=$hy_domain&obfs=salamander&obfs-password=$obfs_pwd#SheepKeeperS-Hysteria2"
+        url="hysteria2://$auth_pwd@$last_ip:$port/?insecure=1&sni=$hy_domain&obfs=salamander&obfs-password=$obfs_pwd&mport=$firstport-$endport#hy2"
+        nohopurl="hysteria2://$auth_pwd@$last_ip:$port/?insecure=1&sni=$hy_domain&obfs=salamander&obfs-password=$obfs_pwd#hy2"
     else
         # 单端口模式
-        url="hysteria2://$auth_pwd@$last_ip:$port/?insecure=1&sni=$hy_domain&obfs=salamander&obfs-password=$obfs_pwd#SheepKeeperS-Hysteria2"
+        url="hysteria2://$auth_pwd@$last_ip:$port/?insecure=1&sni=$hy_domain&obfs=salamander&obfs-password=$obfs_pwd#hy2"
         nohopurl="$url"
     fi
     echo $url > /root/hy/url.txt
@@ -606,7 +606,7 @@ showconf(){
 }
 
 update_core(){
-    wget -N https://raw.githubusercontent.com/lgdglgc/Hysteria/main/install_server.sh
+    wget -N https://raw.githubusercontent.com/xxf185/hysteria/master/install_server.sh
     bash install_server.sh
 
     rm -f install_server.sh
@@ -615,11 +615,10 @@ update_core(){
 menu() {
     clear
     echo "#############################################################"
-    echo -e "#                  ${RED}Hysteria 2 一键安装脚本优化版${PLAIN}                  #"
-    echo -e "# ${GREEN}作者${PLAIN}: SheepKeeper'S Blog                                  #"
-    echo -e "# ${GREEN}博客${PLAIN}: https://blog.kqsdw.me                               #"
-    echo -e "# ${GREEN}GitHub 项目${PLAIN}: https://github.com/lgdglgc/Hysteria           #"
-    echo -e "# ${GREEN}GitLab 项目${PLAIN}: https://gitlab.com/lgdglgc/hysteria           #"
+    echo ""
+    echo -e "     ${RED}-----Hysteria2-----${PLAIN}                  "
+    echo -e " ${GREEN}作者${PLAIN}: xxf185                   "          
+    echo ""
     echo "#############################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 安装 Hysteria 2"
