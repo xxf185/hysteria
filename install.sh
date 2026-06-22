@@ -254,7 +254,7 @@ insthysteria(){
     fi
     ${PACKAGE_INSTALL[int]} curl wget sudo qrencode procps iptables-persistent netfilter-persistent
 
-    wget -N https://raw.githubusercontent.com/lgdglgc/Hysteria/main/install_server.sh
+    wget -N https://raw.githubusercontent.com/xxf185/hysteria//master/install_server.sh
     bash install_server.sh
     rm -f install_server.sh
 
@@ -474,7 +474,7 @@ unsthysteria(){
     iptables -t nat -F PREROUTING >/dev/null 2>&1
     netfilter-persistent save >/dev/null 2>&1
 
-    green "Hysteria 2 已彻底卸载完成！"
+    green "Hysteria2 卸载完成！"
 }
 
 starthysteria(){
@@ -488,7 +488,7 @@ stophysteria(){
 }
 
 hysteriaswitch(){
-    yellow "请选择你需要的操作："
+    yellow "请选择"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 启动 Hysteria 2"
     echo -e " ${GREEN}2.${PLAIN} 关闭 Hysteria 2"
