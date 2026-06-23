@@ -1301,9 +1301,6 @@ main() {
     fi
     rm -f "$_backup"
     echo "[$TIMESTAMP] 更新成功，当前版本: $(get_current)" >> "$LOG"
-
-    # 保留最近 500 行日志
-    tail -n 500 "$LOG" > "${LOG}.tmp" && mv "${LOG}.tmp" "$LOG"
 }
 
 main
