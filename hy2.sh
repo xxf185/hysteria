@@ -1021,7 +1021,8 @@ change_bandwidth() {
 manage_hy2() {
     while true; do
         clear
-        echo -e "\n${SKYBLUE}--- 管理 Hysteria2 ---${PLAIN}"
+        echo -e "\n${YELLOW}--- 管理 Hysteria2 ---${PLAIN}"
+        echo -e ""
         echo -e "1. 查看配置 (全客户端兼容)"
         echo -e "2. 重启服务"
         echo -e "3. 停止服务"
@@ -1030,6 +1031,7 @@ manage_hy2() {
         echo -e "6. 修改密码"
         echo -e "7. 修改带宽"
         echo -e "0. 返回"
+        echo -e ""
         read -r -p "请选择: " opt
         case $opt in
             1) show_config ;;
