@@ -1396,7 +1396,7 @@ main_menu() {
             [ -n "$_ver" ] && _ver_line=" (${_ver})"
         fi
 
-        echo -e "${SKYBLUE}================Hysteria2===================${PLAIN}"
+        echo -e "${Hysteria2}================Hysteria2===================${PLAIN}"
         echo -e ""
         echo -e " 当前状态:    $STATUS${_ver_line}"
         echo -e ""
@@ -1406,7 +1406,7 @@ main_menu() {
         echo -e " 4. 卸载 Hysteria2"
         echo -e " 5. 服务器工具 (BBR / 自动更新 )"
         echo -e " 0. 退出"
-        echo -e "${SKYBLUE}============================================${PLAIN}"
+        echo -e "${Hysteria2}============================================${PLAIN}"
 
         read -r -p "请输入选项: " choice
         case $choice in
