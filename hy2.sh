@@ -821,7 +821,7 @@ show_node() {
     _pass_encoded=$(uri_encode "${PASSWORD}")
 
     # insecure=1：自签名证书场景下客户端必须跳过证书验证
-    local _link="hysteria2://${_pass_encoded}@${_host}:${_port}/?insecure=1&sni=${SNI}#${_node}"
+    local _link="hysteria2://${_pass_encoded}@${_host}:${_port}/?insecure=1&sni=${SNI}#hy2"
     local _encoded
     _encoded=$(uri_encode "$_link")
     local _qr="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${_encoded}"
@@ -845,17 +845,17 @@ show_node() {
 
     # ---- Clash Meta / Stash / Clash Verge ----
     echo -e "${GREEN} Clash Meta / Stash / Clash Verge 配置:${PLAIN}"
-    echo -e "  - {name: '${_node}', type: hysteria2, server: ${_ip}, port: ${_port}, password: ${PASSWORD}, sni: ${SNI}, skip-cert-verify: true, up: ${BW_UP}, down: ${BW_DOWN}}$([ -n "$PORT_HOP" ] && echo "  # 端口跳跃: ${PORT_HOP}")"
+    echo -e "  - {name: 'hy2', type: hysteria2, server: ${_ip}, port: ${_port}, password: ${PASSWORD}, sni: ${SNI}, skip-cert-verify: true, up: ${BW_UP}, down: ${BW_DOWN}}$([ -n "$PORT_HOP" ] && echo "  # 端口跳跃: ${PORT_HOP}")"
     echo -e "${SKYBLUE}─────────────────────────────────────────────${PLAIN}"
 
     # ---- Surge / Surfboard ----
     echo -e "${GREEN} Surge / Surfboard (Android) 配置:${PLAIN}"
-    echo -e "  ${_node} = hysteria2, ${_ip}, ${_port}, password=${PASSWORD}, sni=${SNI}, skip-cert-verify=true, download-bandwidth=${BW_DOWN}, upload-bandwidth=${BW_UP}$([ -n "$PORT_HOP" ] && echo "  # 端口跳跃: ${PORT_HOP}")"
+    echo -e "  hy2 = hysteria2, ${_ip}, ${_port}, password=${PASSWORD}, sni=${SNI}, skip-cert-verify=true, download-bandwidth=${BW_DOWN}, upload-bandwidth=${BW_UP}$([ -n "$PORT_HOP" ] && echo "  # 端口跳跃: ${PORT_HOP}")"
     echo -e "${SKYBLUE}─────────────────────────────────────────────${PLAIN}"
 
     # ---- Loon ----
     echo -e "${GREEN} Loon 配置:${PLAIN}"
-    echo -e "  ${_node} = Hysteria2, ${_ip}, ${_port}, \"${PASSWORD}\", udp=true, sni=${SNI}, skip-cert-verify=true$([ -n "$PORT_HOP" ] && echo "  # 端口跳跃: ${PORT_HOP}")"
+    echo -e "  hy2 = Hysteria2, ${_ip}, ${_port}, \"${PASSWORD}\", udp=true, sni=${SNI}, skip-cert-verify=true$([ -n "$PORT_HOP" ] && echo "  # 端口跳跃: ${PORT_HOP}")"
     echo -e "${SKYBLUE}─────────────────────────────────────────────${PLAIN}"
 }
 
