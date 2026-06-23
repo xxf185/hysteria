@@ -1,23 +1,8 @@
 #!/bin/bash
 #====================================================================================
 # 项目：Hysteria2 Management Script
-# 作者：Jensfrank
+# 作者：xxf185
 # 版本：v1.0.1
-# GitHub: https://github.com/everett7623/hy2
-# Seedloc博客: https://seedloc.com
-# VPSknow网站：https://vpsknow.com
-# Nodeloc论坛: https://nodeloc.com
-# 更新日期: 2026-06-11
-#
-# 支持系统:
-#   Debian 10/11/12+
-#   Ubuntu 20.04/22.04/24.04+
-#   CentOS 7/8/9
-#   Rocky Linux 8/9
-#   AlmaLinux 8/9
-#   Fedora 38+
-#   Arch Linux / Manjaro
-#   Alpine Linux 3.x
 #
 # 支持环境:
 #   标准 VPS / 独立服务器
