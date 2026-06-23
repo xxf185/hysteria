@@ -12,8 +12,6 @@
 #
 # v1.0.0: 端口跳跃 + BBR/自动更新/防火墙/QR/修改带宽/服务工具
 #====================================================================================
-
-# ============================================================
 # 自举：确保以 bash 运行
 # Alpine 等系统默认 sh 为 busybox，不支持 bash 语法
 # 注意：仅支持已保存到磁盘后执行，不可通过 curl | sh 管道运行（$0 不是文件路径）
@@ -1398,18 +1396,10 @@ main_menu() {
             [ -n "$_ver" ] && _ver_line=" (${_ver})"
         fi
 
-        echo -e "${SKYBLUE}===============================================${PLAIN}"
-        echo -e "${GREEN}    Hysteria2 Management Script v1.0.1${PLAIN}"
-        echo -e "${SKYBLUE}===============================================${PLAIN}"
-        echo -e " 项目地址: ${YELLOW}https://github.com/everett7623/hy2${PLAIN}"
-        echo -e " 作者    : ${YELLOW}Jensfrank${PLAIN}"
-        echo -e "${SKYBLUE}───────────────────────────────────────────────${PLAIN}"
-        echo -e " Seedloc博客 : https://seedloc.com"
-        echo -e " VPSknow网站 : https://vpsknow.com"
-        echo -e " Nodeloc论坛 : https://nodeloc.com"
-        echo -e "${SKYBLUE}===============================================${PLAIN}"
-        echo -e " 当前状态: $STATUS${_ver_line}"
-        echo -e "${SKYBLUE}───────────────────────────────────────────────${PLAIN}"
+        echo -e "${SKYBLUE}================Hysteria2===================${PLAIN}"
+        echo -e ""
+        echo -e " 当前状态:    $STATUS${_ver_line}"
+        echo -e ""
         echo -e " 1. 安装 Hysteria2"
         echo -e " 2. 管理 Hysteria2"
         echo -e " 3. 升级 Hysteria2"
