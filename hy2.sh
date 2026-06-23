@@ -499,23 +499,6 @@ install_hy2() {
         configure_std_port || return
     fi
 
-    # 自动放行端口（端口跳跃时放行整个范围）
-    echo -e "${YELLOW}正在配置防火墙...${PLAIN}"
-    if [ -n "$PORT_HOP" ]; then
-        local _hop_start _hop_end
-        _hop_start=$(echo "$PORT_HOP" | cut -d: -f1)
-        _hop_end=$(echo "$PORT_HOP" | cut -d: -f2)
-        open_firewall_range "$_hop_start" "$_hop_end" "udp"
-    else
-        open_firewall_port "$LISTEN_PORT" "udp"
-    fi
-
-    read -r -p "请设置连接密码 [留空自动生成]: " PASSWORD
-    [ -z "$PASSWORD" ] && PASSWORD=$(gen_password)
-    echo "$PASSWORD" | grep -qE '["\\$`]|[[:cntrl:]]' && {
-        echo -e "${RED}密码不能包含引号、反斜杠、美元符、反引号或控制字符${PLAIN}"
-        return
-    }
 
     # IPv6 Only：监听双栈
     # PORT_HOP 格式为用户友好的 "起始:结束"（如 20000:50000），
