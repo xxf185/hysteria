@@ -616,8 +616,7 @@ menu() {
     clear
     echo "#############################################################"
     echo ""
-    echo -e "     ${RED}-----Hysteria2-----${PLAIN}                  "
-    echo -e " ${GREEN}作者${PLAIN}: xxf185                   "          
+    echo -e "     ${YELLOW}-----Hysteria2-----${PLAIN}                  "   
     echo ""
     echo "#############################################################"
     echo ""
