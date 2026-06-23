@@ -1,37 +1,12 @@
 #!/bin/bash
 #====================================================================================
-# 项目：Hysteria2 Management Script
-# 作者：Jensfrank
+# 项目：Hysteria2 一键脚本
+# 作者：xxf185
 # 版本：v1.0.1
-# GitHub: https://github.com/everett7623/hy2
-# Seedloc博客: https://seedloc.com
-# VPSknow网站：https://vpsknow.com
-# Nodeloc论坛: https://nodeloc.com
-# 更新日期: 2026-06-11
+# GitHub: https://github.com/xxf185/hysteria
+# 更新日期: 2026-06-22
 #
-# 支持系统:
-#   Debian 10/11/12+
-#   Ubuntu 20.04/22.04/24.04+
-#   CentOS 7/8/9
-#   Rocky Linux 8/9
-#   AlmaLinux 8/9
-#   Fedora 38+
-#   Arch Linux / Manjaro
-#   Alpine Linux 3.x
-#
-# 支持环境:
-#   标准 VPS / 独立服务器
-#   NAT 机器（内外端口不同）
-#   IPv6 单栈 / 双栈机器
-#   低配 VPS（无需 jq，低内存友好）
-#
-# v1.0.0: 端口跳跃 + BBR/自动更新/防火墙/QR/修改带宽/服务工具
-#====================================================================================
 
-# ============================================================
-# 自举：确保以 bash 运行
-# Alpine 等系统默认 sh 为 busybox，不支持 bash 语法
-# 注意：仅支持已保存到磁盘后执行，不可通过 curl | sh 管道运行（$0 不是文件路径）
 # ============================================================
 if [ -z "$BASH_VERSION" ]; then
     if command -v bash >/dev/null 2>&1; then
@@ -91,7 +66,7 @@ PUBLIC_IPV6=""
 LISTEN_PORT=""
 EXT_PORT=""
 PORT_HOP=""  # 端口跳跃，如 "20000:50000"
-SNI="amd.com"
+SNI="www.bing.com"
 BW_UP="50"
 BW_DOWN="100"
 
@@ -365,13 +340,13 @@ get_latest_version() {
 
     # 从 GitHub API 获取完整 tag（如 app/v2.6.1）
     local _raw_tag
-    _raw_tag=$(curl -Ls --max-time 10 "https://api.github.com/repos/apernet/hysteria/releases/latest" \
+    _raw_tag=$(curl -Ls --max-time 10 "https://api.github.com/repos/xxf185/hysteria/releases/latest" \
         | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | head -1)
 
     # 备用：跟随重定向取 URL 末段
     if [ -z "$_raw_tag" ]; then
         _raw_tag=$(curl -Ls --max-time 10 -o /dev/null -w "%{url_effective}" \
-            "https://github.com/apernet/hysteria/releases/latest" | sed 's|.*/tag/||')
+            "https://github.com/xxf185/hysteria/releases/latest" | sed 's|.*/tag/||')
     fi
 
     [ -z "$_raw_tag" ] && echo -e "${RED}获取版本失败，请检查网络（可能被 GitHub API 限频）${PLAIN}" && return 1
@@ -396,9 +371,8 @@ download_hy2() {
     esac
 
     # 主源使用完整 tag（含 app/ 前缀），确保 URL 正确
-    local _url_github="https://github.com/apernet/hysteria/releases/download/${LAST_VERSION_TAG}/hysteria-linux-${_arch}"
-    # 备用：官方永久镜像（始终指向最新版，无需 tag）
-    local _url_mirror="https://download.hysteria.network/app/latest/hysteria-linux-${_arch}"
+    local _url_github="https://github.com/xxf185/hysteria/releases/download/${LAST_VERSION_TAG}/hysteria-linux-${_arch}"
+ 
 
     local _tmp_bin
     _tmp_bin=$(mktemp /tmp/hysteria-XXXXXX 2>/dev/null) || {
@@ -483,66 +457,6 @@ configure_std_port() {
     fi
 }
 
-# ============================================================
-# 防火墙放行端口（ufw / firewalld / iptables 三套兼容）
-# ============================================================
-
-open_firewall_port() {
-    local _port="$1"
-    local _proto="${2:-udp}"
-
-    if command -v ufw >/dev/null 2>&1 && ufw status 2>/dev/null | grep -q "active"; then
-        ufw allow "${_port}/${_proto}" >/dev/null 2>&1
-        echo -e "  ${GREEN}✓ ufw 已放行 ${_proto}/${_port}${PLAIN}"
-    elif command -v firewall-cmd >/dev/null 2>&1 && firewall-cmd --state >/dev/null 2>&1; then
-        firewall-cmd --permanent --add-port="${_port}/${_proto}" >/dev/null 2>&1
-        firewall-cmd --reload >/dev/null 2>&1
-        echo -e "  ${GREEN}✓ firewalld 已放行 ${_proto}/${_port}${PLAIN}"
-    elif command -v iptables >/dev/null 2>&1; then
-        iptables -C INPUT -p "${_proto}" --dport "${_port}" -j ACCEPT 2>/dev/null || \
-            iptables -I INPUT -p "${_proto}" --dport "${_port}" -j ACCEPT 2>/dev/null
-        if [ "$HAS_IPV6" = "1" ] && command -v ip6tables >/dev/null 2>&1; then
-            ip6tables -C INPUT -p "${_proto}" --dport "${_port}" -j ACCEPT 2>/dev/null || \
-                ip6tables -I INPUT -p "${_proto}" --dport "${_port}" -j ACCEPT 2>/dev/null
-        fi
-        # 尝试持久化
-        if [ -f /etc/iptables/rules.v4 ] && command -v iptables-save >/dev/null 2>&1; then
-            iptables-save > /etc/iptables/rules.v4 2>/dev/null
-        fi
-        echo -e "  ${GREEN}✓ iptables 已放行 ${_proto}/${_port}${PLAIN}"
-    else
-        echo -e "  ${YELLOW}⚠ 未检测到防火墙工具，请手动放行 ${_proto}/${_port}${PLAIN}"
-    fi
-}
-
-# 防火墙端口范围放行（端口跳跃专用）
-open_firewall_range() {
-    local _start="$1" _end="$2"
-    local _proto="${3:-udp}"
-
-    if command -v ufw >/dev/null 2>&1 && ufw status 2>/dev/null | grep -q "active"; then
-        # ufw 支持端口范围语法
-        ufw allow "${_start}:${_end}/${_proto}" >/dev/null 2>&1
-        echo -e "  ${GREEN}✓ ufw 已放行 ${_proto}/${_start}:${_end}${PLAIN}"
-    elif command -v firewall-cmd >/dev/null 2>&1 && firewall-cmd --state >/dev/null 2>&1; then
-        firewall-cmd --permanent --add-port="${_start}-${_end}/${_proto}" >/dev/null 2>&1
-        firewall-cmd --reload >/dev/null 2>&1
-        echo -e "  ${GREEN}✓ firewalld 已放行 ${_proto}/${_start}-${_end}${PLAIN}"
-    elif command -v iptables >/dev/null 2>&1; then
-        iptables -C INPUT -p "${_proto}" --dport "${_start}:${_end}" -j ACCEPT 2>/dev/null || \
-            iptables -I INPUT -p "${_proto}" --dport "${_start}:${_end}" -j ACCEPT 2>/dev/null
-        if [ "$HAS_IPV6" = "1" ] && command -v ip6tables >/dev/null 2>&1; then
-            ip6tables -C INPUT -p "${_proto}" --dport "${_start}:${_end}" -j ACCEPT 2>/dev/null || \
-                ip6tables -I INPUT -p "${_proto}" --dport "${_start}:${_end}" -j ACCEPT 2>/dev/null
-        fi
-        if [ -f /etc/iptables/rules.v4 ] && command -v iptables-save >/dev/null 2>&1; then
-            iptables-save > /etc/iptables/rules.v4 2>/dev/null
-        fi
-        echo -e "  ${GREEN}✓ iptables 已放行 ${_proto}/${_start}:${_end}${PLAIN}"
-    else
-        echo -e "  ${YELLOW}⚠ 未检测到防火墙工具，请手动放行 ${_proto}/${_start}-${_end}${PLAIN}"
-    fi
-}
 
 # ============================================================
 # 密码生成（两步法，避免管道截断导致空密码）
@@ -838,7 +752,7 @@ show_node() {
     _pass_encoded=$(uri_encode "${PASSWORD}")
 
     # insecure=1：自签名证书场景下客户端必须跳过证书验证
-    local _link="hysteria2://${_pass_encoded}@${_host}:${_port}/?insecure=1&sni=${SNI}#${_node}"
+    local _link="hysteria2://${_pass_encoded}@${_host}:${_port}/?insecure=1&sni=${SNI}#hy2"
     local _encoded
     _encoded=$(uri_encode "$_link")
     local _qr="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${_encoded}"
@@ -862,17 +776,17 @@ show_node() {
 
     # ---- Clash Meta / Stash / Clash Verge ----
     echo -e "${GREEN} Clash Meta / Stash / Clash Verge 配置:${PLAIN}"
-    echo -e "  - {name: '${_node}', type: hysteria2, server: ${_ip}, port: ${_port}, password: ${PASSWORD}, sni: ${SNI}, skip-cert-verify: true, up: ${BW_UP}, down: ${BW_DOWN}}$([ -n "$PORT_HOP" ] && echo "  # 端口跳跃: ${PORT_HOP}")"
+    echo -e "  - {name: 'hy2', type: hysteria2, server: ${_ip}, port: ${_port}, password: ${PASSWORD}, sni: ${SNI}, skip-cert-verify: true, up: ${BW_UP}, down: ${BW_DOWN}}$([ -n "$PORT_HOP" ] && echo "  # 端口跳跃: ${PORT_HOP}")"
     echo -e "${SKYBLUE}─────────────────────────────────────────────${PLAIN}"
 
     # ---- Surge / Surfboard ----
     echo -e "${GREEN} Surge / Surfboard (Android) 配置:${PLAIN}"
-    echo -e "  ${_node} = hysteria2, ${_ip}, ${_port}, password=${PASSWORD}, sni=${SNI}, skip-cert-verify=true, download-bandwidth=${BW_DOWN}, upload-bandwidth=${BW_UP}$([ -n "$PORT_HOP" ] && echo "  # 端口跳跃: ${PORT_HOP}")"
+    echo -e "  hy2 = hysteria2, ${_ip}, ${_port}, password=${PASSWORD}, sni=${SNI}, skip-cert-verify=true, download-bandwidth=${BW_DOWN}, upload-bandwidth=${BW_UP}$([ -n "$PORT_HOP" ] && echo "  # 端口跳跃: ${PORT_HOP}")"
     echo -e "${SKYBLUE}─────────────────────────────────────────────${PLAIN}"
 
     # ---- Loon ----
     echo -e "${GREEN} Loon 配置:${PLAIN}"
-    echo -e "  ${_node} = Hysteria2, ${_ip}, ${_port}, \"${PASSWORD}\", udp=true, sni=${SNI}, skip-cert-verify=true$([ -n "$PORT_HOP" ] && echo "  # 端口跳跃: ${PORT_HOP}")"
+    echo -e "  hy2 = Hysteria2, ${_ip}, ${_port}, \"${PASSWORD}\", udp=true, sni=${SNI}, skip-cert-verify=true$([ -n "$PORT_HOP" ] && echo "  # 端口跳跃: ${PORT_HOP}")"
     echo -e "${SKYBLUE}─────────────────────────────────────────────${PLAIN}"
 }
 
@@ -1191,7 +1105,7 @@ TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
 get_latest() {
     local _raw _ver
-    _raw=$(curl -Ls --max-time 15 "https://api.github.com/repos/apernet/hysteria/releases/latest" \
+    _raw=$(curl -Ls --max-time 15 "https://api.github.com/repos/xxf185/hysteria/releases/latest" \
         | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | head -1)
     # 返回完整 tag 和剥离后版本号，以 "|" 分隔
     printf '%s|%s' "$_raw" "${_raw#app/}"
@@ -1241,8 +1155,7 @@ main() {
 
     echo "[$TIMESTAMP] 发现新版本: $_current → $_latest，开始更新..." >> "$LOG"
 
-    _url="https://github.com/apernet/hysteria/releases/download/${_tag}/hysteria-linux-${_arch}"
-    _url_mirror="https://download.hysteria.network/app/latest/hysteria-linux-${_arch}"
+    _url="https://github.com/apernet/xxf185/releases/download/${_tag}/hysteria-linux-${_arch}"
     _tmp_bin=$(mktemp /tmp/hy2-autoupdate-XXXXXX 2>/dev/null)
     _backup="${HY_BIN}.autoupdate.bak"
 
@@ -1473,13 +1386,9 @@ main_menu() {
         echo -e "${SKYBLUE}===============================================${PLAIN}"
         echo -e "${GREEN}    Hysteria2 Management Script v1.0.1${PLAIN}"
         echo -e "${SKYBLUE}===============================================${PLAIN}"
-        echo -e " 项目地址: ${YELLOW}https://github.com/everett7623/hy2${PLAIN}"
-        echo -e " 作者    : ${YELLOW}Jensfrank${PLAIN}"
+        echo -e " 项目地址: ${YELLOW}https://github.com/xxf185/hysteria${PLAIN}"
+        echo -e " 作者    : ${YELLOW}xxf185${PLAIN}"
         echo -e "${SKYBLUE}───────────────────────────────────────────────${PLAIN}"
-        echo -e " Seedloc博客 : https://seedloc.com"
-        echo -e " VPSknow网站 : https://vpsknow.com"
-        echo -e " Nodeloc论坛 : https://nodeloc.com"
-        echo -e "${SKYBLUE}===============================================${PLAIN}"
         echo -e " 当前状态: $STATUS${_ver_line}"
         echo -e "${SKYBLUE}───────────────────────────────────────────────${PLAIN}"
         echo -e " 1. 安装 Hysteria2"
