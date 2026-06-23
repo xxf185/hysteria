@@ -76,7 +76,7 @@ PUBLIC_IPV6=""
 LISTEN_PORT=""
 EXT_PORT=""
 PORT_HOP=""  # 端口跳跃，如 "20000:50000"
-SNI="amd.com"
+SNI="www.bing.com"
 BW_UP="50"
 BW_DOWN="100"
 
@@ -757,7 +757,7 @@ read_config_vars() {
     LISTEN_PORT=$(grep "^listen:" "$HY_CONFIG" | head -1 | grep -oE '[0-9]+$')
     PASSWORD=$(grep "password:" "$HY_CONFIG" | grep -v "^#" | head -1 \
         | sed 's/.*password:[[:space:]]*//' | tr -d '"' | tr -d "'")
-    SNI="amd.com"
+    SNI="www.bing.com"
 
     if [ -d "$HY_META" ]; then
         NAT_MODE=$(cat "$HY_META/nat_mode"       2>/dev/null); NAT_MODE=${NAT_MODE:-0}
