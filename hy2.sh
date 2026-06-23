@@ -350,13 +350,13 @@ get_latest_version() {
 
     # 从 GitHub API 获取完整 tag（如 app/v2.6.1）
     local _raw_tag
-    _raw_tag=$(curl -Ls --max-time 10 "https://api.github.com/repos/apernet/hysteria/releases/latest" \
+    _raw_tag=$(curl -Ls --max-time 10 "https://api.github.com/repos/xxf185/hysteria/releases/latest" \
         | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | head -1)
 
     # 备用：跟随重定向取 URL 末段
     if [ -z "$_raw_tag" ]; then
         _raw_tag=$(curl -Ls --max-time 10 -o /dev/null -w "%{url_effective}" \
-            "https://github.com/apernet/hysteria/releases/latest" | sed 's|.*/tag/||')
+            "https://github.com/xxf185/hysteria/releases/latest" | sed 's|.*/tag/||')
     fi
 
     [ -z "$_raw_tag" ] && echo -e "${RED}获取版本失败，请检查网络（可能被 GitHub API 限频）${PLAIN}" && return 1
@@ -381,7 +381,7 @@ download_hy2() {
     esac
 
     # 主源使用完整 tag（含 app/ 前缀），确保 URL 正确
-    local _url_github="https://github.com/apernet/hysteria/releases/download/${LAST_VERSION_TAG}/hysteria-linux-${_arch}"
+    local _url_github="https://github.com/xxf185/hysteria/releases/download/${LAST_VERSION_TAG}/hysteria-linux-${_arch}"
     # 备用：官方永久镜像（始终指向最新版，无需 tag）
     local _url_mirror="https://download.hysteria.network/app/latest/hysteria-linux-${_arch}"
 
@@ -1176,7 +1176,7 @@ TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
 get_latest() {
     local _raw _ver
-    _raw=$(curl -Ls --max-time 15 "https://api.github.com/repos/apernet/hysteria/releases/latest" \
+    _raw=$(curl -Ls --max-time 15 "https://api.github.com/repos/xxf185/hysteria/releases/latest" \
         | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | head -1)
     # 返回完整 tag 和剥离后版本号，以 "|" 分隔
     printf '%s|%s' "$_raw" "${_raw#app/}"
@@ -1226,7 +1226,7 @@ main() {
 
     echo "[$TIMESTAMP] 发现新版本: $_current → $_latest，开始更新..." >> "$LOG"
 
-    _url="https://github.com/apernet/hysteria/releases/download/${_tag}/hysteria-linux-${_arch}"
+    _url="https://github.com/xxf185/hysteria/releases/download/${_tag}/hysteria-linux-${_arch}"
     _url_mirror="https://download.hysteria.network/app/latest/hysteria-linux-${_arch}"
     _tmp_bin=$(mktemp /tmp/hy2-autoupdate-XXXXXX 2>/dev/null)
     _backup="${HY_BIN}.autoupdate.bak"
