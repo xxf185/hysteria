@@ -1406,7 +1406,7 @@ main_menu() {
         echo -e " 4. 卸载 Hysteria2"
         echo -e " 5. 服务器工具 (BBR / 自动更新 )"
         echo -e " 0. 退出"
-        echo -e "${SKYBLUE}===============================================${PLAIN}"
+        echo -e "${SKYBLUE}============================================${PLAIN}"
 
         read -r -p "请输入选项: " choice
         case $choice in
