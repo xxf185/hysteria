@@ -204,7 +204,7 @@ inst_jump(){
     echo ""
     read -rp "请输入选项 [1-2]: " jumpInput
     if [[ $jumpInput == 2 ]]; then
-        yellow "建议针对中国移动使用 20000-50000 高端口段，可有效降低被封概率"
+        yellow "建议使用 20000-50000 高端口段"
         read -p "设置范围端口的起始端口 (建议20000-50000之间)：" firstport
         read -p "设置一个范围端口的末尾端口 (建议20000-50000之间，一定要比上面起始端口大)：" endport
         if [[ $firstport -ge $endport ]]; then
