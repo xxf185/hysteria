@@ -606,7 +606,7 @@ install_hy2() {
     fi
 
     echo -e "${YELLOW}生成自签名证书...${PLAIN}"
-    openssl req -new -x509 -days 3650  &&  openssl ecparam -genkey -name prime256v1 \
+    openssl ecparam -genkey -name prime256v1 && openssl req -new -x509 -days 3650  \
         -keyout "$HY_CERT_DIR/server.key" -out "$HY_CERT_DIR/server.crt" \
         -subj "/CN=${SNI}" >/dev/null 2>&1 || {
             echo -e "${RED}证书生成失败${PLAIN}"
