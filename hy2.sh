@@ -1396,9 +1396,9 @@ main_menu() {
             [ -n "$_ver" ] && _ver_line=" (${_ver})"
         fi
 
-        echo -e "${Hysteria2}================Hysteria2===================${PLAIN}"
+        echo -e "${YELLOW}================Hysteria2===================${PLAIN}"
         echo -e ""
-        echo -e " 当前状态:    $STATUS${_ver_line}"
+        echo -e " 当前状态:$STATUS${_ver_line}"
         echo -e ""
         echo -e " 1. 安装 Hysteria2"
         echo -e " 2. 管理 Hysteria2"
@@ -1406,7 +1406,7 @@ main_menu() {
         echo -e " 4. 卸载 Hysteria2"
         echo -e " 5. 服务器工具 (BBR / 自动更新 )"
         echo -e " 0. 退出"
-        echo -e "${Hysteria2}============================================${PLAIN}"
+        echo -e "${YELLOW}============================================${PLAIN}"
 
         read -r -p "请输入选项: " choice
         case $choice in
