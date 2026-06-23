@@ -905,7 +905,7 @@ show_config() {
         show_node "$PUBLIC_IPV6" "$EXT_PORT" "v6"
     fi
 
-    echo -e "${YELLOW}提示: Quantumult X 暂不支持 Hy2 协议。${PLAIN}"
+    echo -e ""
     [ "$NAT_MODE" = "1" ] && \
         echo -e "${YELLOW}NAT 提示: 若无法连接，请确认宿主机已将 UDP ${EXT_PORT} 转发到本机 UDP ${LISTEN_PORT}${PLAIN}"
     echo ""
