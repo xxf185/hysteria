@@ -409,7 +409,7 @@ download_hy2() {
         return 1
     fi
     mv -f "$_tmp_bin" "$HY_BIN"
-    echo -e "${GREEN}下载完成（来源：${_source}）${PLAIN}"
+    echo -e "${GREEN}下载完成${PLAIN}"
 }
 
 # ============================================================
