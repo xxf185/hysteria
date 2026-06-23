@@ -81,7 +81,7 @@ inst_cert(){
                 realip
             fi
 
-            read -p "请输入需要申请证书的域名：" domain
+            read -p "请输入域名：" domain
             [[ -z $domain ]] && red "未输入域名，无法执行操作！" && exit 1
             green "已输入的域名：$domain" && sleep 1
             domainIP=$(dig @8.8.8.8 +time=2 +short "$domain" 2>/dev/null)
