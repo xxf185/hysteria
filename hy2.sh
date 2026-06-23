@@ -1369,56 +1369,6 @@ check_auto_update_status() {
     fi
 }
 
-view_auto_update_log() {
-    echo -e "\n${SKYBLUE}--- 自动更新日志（最近 30 条）---${PLAIN}"
-    if [ -f "$AUTO_UPDATE_LOG" ]; then
-        tail -n 30 "$AUTO_UPDATE_LOG"
-    else
-        echo -e "${YELLOW}暂无更新日志${PLAIN}"
-    fi
-    echo ""
-    read -r -p "按回车继续..." _tmp
-}
-
-# ============================================================
-# 系统信息
-# ============================================================
-
-show_system_info() {
-    echo -e "\n${SKYBLUE}--- 系统信息 ---${PLAIN}"
-
-    local _os _kernel _arch _cpu_model _cpu_cores
-    local _mem_total _mem_free _mem_used _disk _load _uptime_str
-
-    _os=$(grep PRETTY_NAME /etc/os-release 2>/dev/null | cut -d'"' -f2 || uname -s)
-    _kernel=$(uname -r)
-    _arch=$(uname -m)
-    _cpu_model=$(grep "model name" /proc/cpuinfo 2>/dev/null | head -1 | cut -d: -f2 | xargs)
-    _cpu_cores=$(nproc 2>/dev/null || grep -c "processor" /proc/cpuinfo 2>/dev/null)
-    _mem_total=$(awk '/MemTotal/     {printf "%.0f", $2/1024}' /proc/meminfo 2>/dev/null)
-    _mem_free=$(awk  '/MemAvailable/ {printf "%.0f", $2/1024}' /proc/meminfo 2>/dev/null)
-    _mem_used=$(( ${_mem_total:-0} - ${_mem_free:-0} ))
-    _disk=$(df -h / 2>/dev/null | awk 'NR==2 {print $3" / "$2" ("$5" used)"}')
-    _load=$(uptime 2>/dev/null | awk -F'load average:' '{print $2}' | xargs)
-    _uptime_str=$(uptime -p 2>/dev/null || uptime 2>/dev/null | awk -F'up ' '{print $2}' | cut -d, -f1-2)
-
-    echo -e "  系统    : ${YELLOW}${_os}${PLAIN}"
-    echo -e "  内核    : ${YELLOW}${_kernel}${PLAIN}"
-    echo -e "  架构    : ${YELLOW}${_arch}${PLAIN}"
-    echo -e "  CPU     : ${YELLOW}${_cpu_model:-未知} × ${_cpu_cores:-?}${PLAIN}"
-    echo -e "  内存    : ${YELLOW}${_mem_used}MB / ${_mem_total}MB${PLAIN}"
-    echo -e "  磁盘    : ${YELLOW}${_disk:-未知}${PLAIN}"
-    echo -e "  负载    : ${YELLOW}${_load:-未知}${PLAIN}"
-    echo -e "  运行时间: ${YELLOW}${_uptime_str:-未知}${PLAIN}"
-    echo -e "${SKYBLUE}─────────────────────────────────────────────${PLAIN}"
-    check_bbr_status
-    echo -e "${SKYBLUE}─────────────────────────────────────────────${PLAIN}"
-    check_auto_update_status
-    echo -e "${SKYBLUE}─────────────────────────────────────────────${PLAIN}"
-    echo ""
-    read -r -p "按回车返回..." _tmp
-}
-
 # ============================================================
 # 服务器工具子菜单
 # ============================================================
@@ -1431,8 +1381,6 @@ server_tools_menu() {
         echo -e "2. 查看 BBR 状态"
         echo -e "3. 开启自动更新（每天 03:00）"
         echo -e "4. 关闭自动更新"
-        echo -e "5. 查看自动更新日志"
-        echo -e "6. 系统信息总览"
         echo -e "0. 返回"
         read -r -p "请选择: " opt
         case $opt in
@@ -1440,8 +1388,6 @@ server_tools_menu() {
             2) echo ""; check_bbr_status; echo ""; read -r -p "按回车继续..." _tmp ;;
             3) install_auto_update ;;
             4) remove_auto_update ;;
-            5) view_auto_update_log ;;
-            6) show_system_info ;;
             0) return ;;
             *) echo -e "${RED}输入错误${PLAIN}"; sleep 1 ;;
         esac
@@ -1486,7 +1432,7 @@ main_menu() {
         echo -e " 2. 管理 Hysteria2"
         echo -e " 3. 升级 Hysteria2"
         echo -e " 4. 卸载 Hysteria2"
-        echo -e " 5. 服务器工具 (BBR / 自动更新 / 系统信息)"
+        echo -e " 5. 服务器工具 (BBR / 自动更新 )"
         echo -e " 0. 退出"
         echo -e "${SKYBLUE}===============================================${PLAIN}"
 
