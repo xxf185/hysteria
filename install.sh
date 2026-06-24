@@ -614,24 +614,18 @@ update_core(){
 
 menu() {
     clear
-    echo "#############################################################"
     echo ""
-    echo -e "     ${YELLOW}-----Hysteria2-----${PLAIN}                  "   
+    echo -e "----------Hysteria2----------"   
     echo ""
-    echo "#############################################################"
+    echo -e " 1. 安装 Hysteria 2"
+    echo -e " 2. 卸载 Hysteria 2"
+    echo -e " 3. 关闭、开启、重启 Hysteria 2"
+    echo -e " 4. 修改 Hysteria 2 配置"
+    echo -e " 5. 显示 Hysteria 2 配置文件"
+    echo -e " 6. 更新 Hysteria 2 内核"
+    echo -e " 0. 退出脚本"
     echo ""
-    echo -e " ${GREEN}1.${PLAIN} 安装 Hysteria 2"
-    echo -e " ${GREEN}2.${PLAIN} ${RED}卸载 Hysteria 2${PLAIN}"
-    echo " -------------"
-    echo -e " ${GREEN}3.${PLAIN} 关闭、开启、重启 Hysteria 2"
-    echo -e " ${GREEN}4.${PLAIN} 修改 Hysteria 2 配置"
-    echo -e " ${GREEN}5.${PLAIN} 显示 Hysteria 2 配置文件"
-    echo " -------------"
-    echo -e " ${GREEN}6.${PLAIN} 更新 Hysteria 2 内核"
-    echo " -------------"
-    echo -e " ${GREEN}0.${PLAIN} 退出脚本"
-    echo ""
-    read -rp "请输入选项 [0-6]: " menuInput
+    read -rp "选项 [0-6]: " menuInput
     case $menuInput in
         1 ) insthysteria ;;
         2 ) unsthysteria ;;
