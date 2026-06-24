@@ -59,7 +59,7 @@ inst_cert(){
     echo -e " ${GREEN}2.${PLAIN} Acme 脚本自动申请"
     echo -e " ${GREEN}3.${PLAIN} 自定义证书路径"
     echo ""
-    read -rp "请输入选项 [1-3]: " certInput
+    read -rp "选项 [1-3]: " certInput
     if [[ $certInput == 2 ]]; then
         cert_path="/etc/hysteria/cert.crt"
         key_path="/etc/hysteria/private.key"
@@ -202,7 +202,7 @@ inst_jump(){
     echo -e " ${GREEN}1.${PLAIN} 单端口 ${YELLOW}（默认）${PLAIN}"
     echo -e " ${GREEN}2.${PLAIN} 端口跳跃"
     echo ""
-    read -rp "请输入选项 [1-2]: " jumpInput
+    read -rp "选项 [1-2]: " jumpInput
     if [[ $jumpInput == 2 ]]; then
         yellow "建议使用 20000-50000 高端口段"
         read -p "设置范围端口的起始端口 (建议20000-50000之间)：" firstport
@@ -583,7 +583,7 @@ changeconf(){
     echo -e " ${GREEN}3.${PLAIN} 修改证书类型"
     echo -e " ${GREEN}4.${PLAIN} 修改伪装网站"
     echo ""
-    read -p " 请选择操作 [1-4]：" confAnswer
+    read -p " 选项 [1-4]：" confAnswer
     case $confAnswer in
         1 ) changeport ;;
         2 ) changepasswd ;;
