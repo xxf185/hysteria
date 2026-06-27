@@ -467,67 +467,6 @@ configure_std_port() {
 }
 
 # ============================================================
-# 防火墙放行端口（ufw / firewalld / iptables 三套兼容）
-# ============================================================
-
-open_firewall_port() {
-    local _port="$1"
-    local _proto="${2:-udp}"
-
-    if command -v ufw >/dev/null 2>&1 && ufw status 2>/dev/null | grep -q "active"; then
-        ufw allow "${_port}/${_proto}" >/dev/null 2>&1
-        echo -e "  ${GREEN}✓ ufw 已放行 ${_proto}/${_port}${PLAIN}"
-    elif command -v firewall-cmd >/dev/null 2>&1 && firewall-cmd --state >/dev/null 2>&1; then
-        firewall-cmd --permanent --add-port="${_port}/${_proto}" >/dev/null 2>&1
-        firewall-cmd --reload >/dev/null 2>&1
-        echo -e "  ${GREEN}✓ firewalld 已放行 ${_proto}/${_port}${PLAIN}"
-    elif command -v iptables >/dev/null 2>&1; then
-        iptables -C INPUT -p "${_proto}" --dport "${_port}" -j ACCEPT 2>/dev/null || \
-            iptables -I INPUT -p "${_proto}" --dport "${_port}" -j ACCEPT 2>/dev/null
-        if [ "$HAS_IPV6" = "1" ] && command -v ip6tables >/dev/null 2>&1; then
-            ip6tables -C INPUT -p "${_proto}" --dport "${_port}" -j ACCEPT 2>/dev/null || \
-                ip6tables -I INPUT -p "${_proto}" --dport "${_port}" -j ACCEPT 2>/dev/null
-        fi
-        # 尝试持久化
-        if [ -f /etc/iptables/rules.v4 ] && command -v iptables-save >/dev/null 2>&1; then
-            iptables-save > /etc/iptables/rules.v4 2>/dev/null
-        fi
-        echo -e "  ${GREEN}✓ iptables 已放行 ${_proto}/${_port}${PLAIN}"
-    else
-        echo -e "  ${YELLOW}⚠ 未检测到防火墙工具，请手动放行 ${_proto}/${_port}${PLAIN}"
-    fi
-}
-
-# 防火墙端口范围放行（端口跳跃专用）
-open_firewall_range() {
-    local _start="$1" _end="$2"
-    local _proto="${3:-udp}"
-
-    if command -v ufw >/dev/null 2>&1 && ufw status 2>/dev/null | grep -q "active"; then
-        # ufw 支持端口范围语法
-        ufw allow "${_start}:${_end}/${_proto}" >/dev/null 2>&1
-        echo -e "  ${GREEN}✓ ufw 已放行 ${_proto}/${_start}:${_end}${PLAIN}"
-    elif command -v firewall-cmd >/dev/null 2>&1 && firewall-cmd --state >/dev/null 2>&1; then
-        firewall-cmd --permanent --add-port="${_start}-${_end}/${_proto}" >/dev/null 2>&1
-        firewall-cmd --reload >/dev/null 2>&1
-        echo -e "  ${GREEN}✓ firewalld 已放行 ${_proto}/${_start}-${_end}${PLAIN}"
-    elif command -v iptables >/dev/null 2>&1; then
-        iptables -C INPUT -p "${_proto}" --dport "${_start}:${_end}" -j ACCEPT 2>/dev/null || \
-            iptables -I INPUT -p "${_proto}" --dport "${_start}:${_end}" -j ACCEPT 2>/dev/null
-        if [ "$HAS_IPV6" = "1" ] && command -v ip6tables >/dev/null 2>&1; then
-            ip6tables -C INPUT -p "${_proto}" --dport "${_start}:${_end}" -j ACCEPT 2>/dev/null || \
-                ip6tables -I INPUT -p "${_proto}" --dport "${_start}:${_end}" -j ACCEPT 2>/dev/null
-        fi
-        if [ -f /etc/iptables/rules.v4 ] && command -v iptables-save >/dev/null 2>&1; then
-            iptables-save > /etc/iptables/rules.v4 2>/dev/null
-        fi
-        echo -e "  ${GREEN}✓ iptables 已放行 ${_proto}/${_start}:${_end}${PLAIN}"
-    else
-        echo -e "  ${YELLOW}⚠ 未检测到防火墙工具，请手动放行 ${_proto}/${_start}-${_end}${PLAIN}"
-    fi
-}
-
-# ============================================================
 # 密码生成（两步法，避免管道截断导致空密码）
 # ============================================================
 
