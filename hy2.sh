@@ -1410,7 +1410,7 @@ main_menu() {
         echo -e " 0. 退出"
         echo -e "${YELLOW}============================================${PLAIN}"
 
-        read -r -p "请输入选项: " choice
+        read -r -p "选项: " choice
         case $choice in
             1) install_hy2 ;;
             2) manage_hy2 ;;
