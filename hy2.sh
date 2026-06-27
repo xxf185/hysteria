@@ -513,10 +513,6 @@ install_hy2() {
         local _hop_start _hop_end
         _hop_start=$(echo "$PORT_HOP" | cut -d: -f1)
         _hop_end=$(echo "$PORT_HOP" | cut -d: -f2)
-        open_firewall_range "$_hop_start" "$_hop_end" "udp"
-    else
-        open_firewall_port "$LISTEN_PORT" "udp"
-    fi
 
     read -r -p "请设置连接密码 [留空自动生成]: " PASSWORD
     [ -z "$PASSWORD" ] && PASSWORD=$(gen_password)
